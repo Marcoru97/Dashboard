@@ -15,6 +15,8 @@ export default {
 };
 </script>
 
-<style>
-/* CSS */
+<style lang="scss">
+html {
+  background: #424242;
+}
 </style>

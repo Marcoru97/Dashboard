@@ -1,0 +1,13 @@
+
+.dashboard-grid__grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.dashboard-grid__item {
+    width: 250px;
+    height: 250px;
+    margin: 10px;
+    background: #757575;
+}
