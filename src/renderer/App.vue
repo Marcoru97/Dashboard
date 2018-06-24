@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Overview from './components/LandingPage.vue';
+import Overview from './components/dashboard_grid/Grid';
 
 export default {
   name: 'dashboard',
