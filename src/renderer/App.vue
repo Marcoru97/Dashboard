@@ -1,15 +1,20 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <overview></overview>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'dashboard'
-  }
+import Overview from './components/LandingPage.vue';
+
+export default {
+  name: 'dashboard',
+  components: {
+    Overview,
+  },
+};
 </script>
 
 <style>
-  /* CSS */
+/* CSS */
 </style>
