@@ -1,0 +1,21 @@
+@import "./../../variables/colors";
+
+.window-frame__frame {
+    width: 100%;
+    padding: 3px 0 3px 0;
+    background: $background-window-frame;
+    -webkit-user-select: none;
+    -webkit-app-region: drag;
+}
+
+.window-frame__close-icon {
+    width: 18px;
+    height: 18px;
+    fill: $button-light;
+}
+
+.window-frame__control {
+    display: flex;
+    float: right;
+    height: 18px;
+}

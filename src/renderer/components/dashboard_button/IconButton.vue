@@ -1,6 +1,6 @@
 <template>
-  <button class="icon-button__button" :class="`icon-button--animation-${animation}`">
-    <svg class="icon-button__button-icon" :class="`icon-button--color-${iconColor}`">
+  <button class="icon-button__button">
+    <svg class="icon-button__button-icon" :class="`icon-button--color-${iconColor} icon-button--animation-${animation}`">
       <use :xlink:href="`#${icon}`" />
     </svg>
   </button>

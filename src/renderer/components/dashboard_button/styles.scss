@@ -2,28 +2,30 @@
 @import "./../../variables/animation";
 
 .icon-button__button {
-    display: flex;
+    display: inline-block;
     background: 0;
     padding: 2px;
     border: 0;
+    overflow: hidden;
     cursor: pointer;
 
     &:focus {
         outline: 0;
     }
-}
 
-.icon-button__button-icon {
-    width: 30px;
-    height: 30px;
+    // Better animation handling?
+    &:hover .icon-button--animation-hover-rotate {
+        transform: rotateZ(45deg);
+    }
 }
 
 .icon-button--animation-hover-rotate {
     transition: transform 300ms $easeInOutCubic;
+}
 
-    &:hover {
-        transform: rotateZ(45deg);
-    }
+.icon-button__button-icon {
+    width: 100%;
+    height: 100%;
 }
 
 .icon-button--color-dark-gray {
