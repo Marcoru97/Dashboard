@@ -1,3 +1,4 @@
+@import "./../../variables/colors";
 
 .dashboard-grid__grid {
     display: flex;
@@ -9,5 +10,5 @@
     width: 250px;
     height: 250px;
     margin: 10px;
-    background: #757575;
+    background: $foreground;
 }

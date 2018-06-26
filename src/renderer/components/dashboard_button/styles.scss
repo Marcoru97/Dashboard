@@ -1,6 +1,10 @@
+@import "./../../variables/colors";
+@import "./../../variables/animation";
+
 .icon-button__button {
     display: flex;
     background: 0;
+    padding: 2px;
     border: 0;
     cursor: pointer;
 
@@ -15,7 +19,7 @@
 }
 
 .icon-button--animation-hover-rotate {
-    transition: transform 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: transform 300ms $easeInOutCubic;
 
     &:hover {
         transform: rotateZ(45deg);
@@ -23,5 +27,5 @@
 }
 
 .icon-button--color-dark-gray {
-    fill: #212121;
+    fill: $button-light;
 }
