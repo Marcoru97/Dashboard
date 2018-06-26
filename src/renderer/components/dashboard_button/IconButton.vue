@@ -1,7 +1,7 @@
 <template>
-  <button>
-    <svg>
-      <use xlink:href="assets/settings.svg#settings" />
+  <button class="icon-button__button" :class="`icon-button--animation-${animation}`">
+    <svg class="icon-button__button-icon" :class="`icon-button--color-${iconColor}`">
+      <use :xlink:href="`#${icon}`" />
     </svg>
   </button>
 </template>
@@ -12,7 +12,15 @@ export default {
   props: {
     icon: {
       type: String,
-      required: true,
+      required: false,
+    },
+    iconColor: {
+      type: String,
+      required: false,
+    },
+    animation: {
+      type: String,
+      required: false,
     },
   },
 };
