@@ -1,0 +1,19 @@
+@import './variables/colors';
+
+.app__body {
+    position: absolute;
+    top: 22px;
+    bottom: 0px;
+    overflow-y: auto;
+    background: $background;
+}
+
+.app__body-nav {
+    float: right;
+    margin: 10px;
+}
+
+.app__body-settings-button {
+    width: 25px;
+    height: 25px;
+}

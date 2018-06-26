@@ -16,10 +16,14 @@
     -webkit-app-region: no-drag;
 }
 
+.window-frame__max-icon,
+.window-frame__min-icon,
 .window-frame__close-icon {
     width: 40px;
     height: 18px;
+}
 
+.window-frame__close-icon {
     &:hover {
         background: red !important;
     }
@@ -27,9 +31,6 @@
 
 .window-frame__max-icon,
 .window-frame__min-icon {
-    width: 40px;
-    height: 18px;
-
     &:hover {
         background: $background-window-frame-hover !important;
     }

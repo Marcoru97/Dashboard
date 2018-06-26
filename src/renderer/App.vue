@@ -18,10 +18,12 @@
         <path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/>
       </symbol>
     </svg>
-    <window-frame></window-frame>
-    <section>
-      <nav>
-        <icon-button icon="settings" icon-color="light-gray" animation="hover-rotate" class="app__settings-button" />
+    <section class="app__frame">
+      <window-frame></window-frame>
+    </section>
+    <section class="app__body">
+      <nav class="app__body-nav">
+        <icon-button icon="settings" icon-color="light-gray" animation="hover-rotate" class="app__body-settings-button" />
       </nav>
       <overview></overview>
     </section>
@@ -42,33 +44,13 @@ export default {
   },
 };
 </script>
-
 <style lang="scss">
-@import './variables/colors';
-
-.app__settings-button {
-  width: 25px;
-  height: 25px;
-}
-
-section {
-  position: absolute;
-  top: 25px;
-  bottom: 0px;
-  overflow-y: auto;
-}
-
 html,
 body {
   top: 0;
   left: 0;
   margin: 0;
   padding: 0;
-  background: $background;
-}
-
-nav {
-  float: right;
-  margin: 10px;
 }
 </style>
+<style src="./styles.scss" lang="scss" scoped />
