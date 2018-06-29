@@ -25,15 +25,15 @@
       <nav class="app__body-nav">
         <icon-button icon="settings" icon-color="light-gray" animation="hover-rotate" class="app__body-settings-button" />
       </nav>
-      <overview></overview>
+      <overview :item-data="testData"></overview>
     </section>
   </div>
 </template>
 
 <script>
-import Overview from './components/dashboard_grid/Grid';
-import IconButton from './components/dashboard_button/IconButton';
-import WindowFrame from './components/window_frame/WindowFrame';
+import Overview from './components/dashboard_grid';
+import IconButton from './components/dashboard_button';
+import WindowFrame from './components/window_frame';
 
 export default {
   name: 'dashboard',
@@ -41,6 +41,20 @@ export default {
     Overview,
     IconButton,
     WindowFrame,
+  },
+
+  data() {
+    return {
+      testData: [
+        { name: 'Test1' },
+        { name: 'Test2' },
+        { name: 'Test3' },
+        { name: 'Test4' },
+        { name: 'Test5' },
+        { name: 'Test6' },
+      ],
+      settingsVisible: false,
+    };
   },
 };
 </script>

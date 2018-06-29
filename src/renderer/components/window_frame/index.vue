@@ -9,7 +9,7 @@
     </div>
 </template>
 <script>
-import IconButton from './../dashboard_button/IconButton';
+import IconButton from './../dashboard_button';
 
 export default {
   name: 'window-frame',

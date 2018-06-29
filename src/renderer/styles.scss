@@ -1,9 +1,10 @@
 @import './variables/colors';
 
 .app__body {
-    position: absolute;
+    width: 100%;
     top: 22px;
     bottom: 0px;
+    position: absolute;
     overflow-y: auto;
     background: $background;
 }
