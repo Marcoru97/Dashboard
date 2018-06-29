@@ -1,6 +1,8 @@
 @import './variables/colors';
 
 .app__body {
+    display: flex;
+    flex-wrap: nowrap;
     width: 100%;
     top: 22px;
     bottom: 0px;
@@ -9,12 +11,14 @@
     background: $background;
 }
 
-.app__body-nav {
-    float: right;
-    margin: 10px;
+.app-body__overview {
+    order: 0;
+    flex-grow: 1;
 }
 
-.app__body-settings-button {
-    width: 25px;
-    height: 25px;
+.app-body__nav {
+    order: 1;
+    // TODO: Better visibility handling of the button
+    min-width: 45px;
+    height: 100%;
 }

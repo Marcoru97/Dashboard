@@ -22,24 +22,25 @@
       <window-frame></window-frame>
     </section>
     <section class="app__body">
-      <nav class="app__body-nav">
-        <icon-button icon="settings" icon-color="light-gray" animation="hover-rotate" class="app__body-settings-button" />
+      <nav class="app-body__nav">
+        <settings></settings>
       </nav>
-      <overview :item-data="testData"></overview>
+      <overview class="app-body__overview" :item-data="testData"></overview>
     </section>
   </div>
 </template>
 
 <script>
 import Overview from './components/dashboard_grid';
-import IconButton from './components/dashboard_button';
+import Settings from './components/dashboard_settings';
 import WindowFrame from './components/window_frame';
 
 export default {
   name: 'dashboard',
   components: {
     Overview,
-    IconButton,
+    Settings,
+
     WindowFrame,
   },
 
@@ -53,7 +54,6 @@ export default {
         { name: 'Test5' },
         { name: 'Test6' },
       ],
-      settingsVisible: false,
     };
   },
 };
