@@ -1,8 +1,10 @@
 @import "./../../variables/colors";
+@import "./../../variables/animation";
 
 .dashboard-settings__wrapper {
     position: relative;
     height: 100%;
+    overflow: hidden;
 }
 
 .dashboard-settings__toggle-button {
@@ -12,10 +14,25 @@
     width: 25px;
     height: 25px;
     margin: 10px;
+    z-index: 100;
 }
 
-.dashboard-settings__content {
-    width: 200px;
+.dashboard-settings__menu {
+    width: 500px;
     height: 100%;
     background: $background-window-frame;
+}
+
+.dashboard-settings__menu-animation {
+    &-enter-active,  {
+        transition: transform 200ms $easeOutCubic;
+    }
+
+    &-leave-active {
+        transition: transform 200ms $easeInCubic;
+    }
+
+    &-enter, &-leave-to {
+        transform: translateX(100%);
+    }
 }

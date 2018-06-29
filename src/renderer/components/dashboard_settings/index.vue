@@ -7,9 +7,11 @@
             class="dashboard-settings__toggle-button"
             @click="settingsVisible = !settingsVisible"
         />
-        <div class="dashboard-settings__content" v-show="settingsVisible">
+        <transition name="dashboard-settings__menu-animation">
+        <div class="dashboard-settings__menu" v-show="settingsVisible">
             test
         </div>
+        </transition>
     </div>
 </template>
 <script>
