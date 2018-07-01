@@ -9,6 +9,7 @@
     position: absolute;
     overflow-y: auto;
     background: $background;
+    overflow: hidden;
 }
 
 .app-body__overview {
@@ -18,7 +19,4 @@
 
 .app-body__nav {
     order: 1;
-    // TODO: Better visibility handling of the button
-    min-width: 45px;
-    height: 100%;
 }

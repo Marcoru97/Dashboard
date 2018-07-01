@@ -17,6 +17,10 @@
         <title>Box</title>
         <path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/>
       </symbol>
+      <symbol id="arrow_right" viewbox="0 0 24 24">
+        <title>Arrow Right</title>
+        <path d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"/>
+      </symbol>
     </svg>
     <section class="app__frame">
       <window-frame></window-frame>
@@ -53,18 +57,28 @@ export default {
         { name: 'Test4' },
         { name: 'Test5' },
         { name: 'Test6' },
+        { name: 'Test7' },
       ],
     };
   },
 };
 </script>
 <style lang="scss">
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+@import './variables/colors';
+
 html,
 body {
   top: 0;
   left: 0;
   margin: 0;
   padding: 0;
+
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  text-rendering: optimizeLegibility;
+  color: $text-color;
 }
 </style>
 <style src="./styles.scss" lang="scss" scoped />

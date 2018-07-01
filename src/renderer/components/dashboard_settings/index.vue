@@ -1,15 +1,18 @@
 <template>
     <div class="dashboard-settings__wrapper">
         <icon-button
-            icon="settings"
+            :icon="buttonIcon"
             icon-color="light-gray"
-            animation="hover-rotate"
             class="dashboard-settings__toggle-button"
             @click="settingsVisible = !settingsVisible"
         />
         <transition name="dashboard-settings__menu-animation">
         <div class="dashboard-settings__menu" v-show="settingsVisible">
-            test
+            <section>
+                <hr class="dashboard-settings-menu-line" />
+                <h1 class="dashbpard-settings-menu__header">Settings</h1>
+                <hr class="dashboard-settings-menu-line" />
+            </section>
         </div>
         </transition>
     </div>
@@ -24,6 +27,12 @@ export default {
     return {
       settingsVisible: false,
     };
+  },
+
+  computed: {
+    buttonIcon() {
+      return this.settingsVisible ? 'arrow_right' : 'settings';
+    },
   },
 };
 </script>
