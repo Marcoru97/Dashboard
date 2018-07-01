@@ -78,7 +78,7 @@ body {
   font-weight: 400;
   font-size: 15px;
   text-rendering: optimizeLegibility;
-  color: $text-color;
+  color: $text;
 }
 </style>
 <style src="./styles.scss" lang="scss" scoped />
