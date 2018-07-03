@@ -84,17 +84,13 @@ body {
 
 ::-webkit-scrollbar {
   width: 12px;
-  background: #212121;
+  background: $scroll-bar-background;
   border-radius: 50px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #141414;
+  background: $scroll-bar-foreground;
   border-radius: 50px;
-}
-
-::-webkit-scrollbar-corner {
-  background: #000;
 }
 </style>
 <style src="./styles.scss" lang="scss" scoped />
