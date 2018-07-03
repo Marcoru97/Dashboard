@@ -2,6 +2,7 @@
 
 .dashboard-grid__grid {
     display: flex;
+    align-content: flex-start;
     flex-direction: row;
     flex-wrap: wrap;
     overflow-y: auto;

@@ -50,16 +50,12 @@ export default {
 
   data() {
     return {
-      testData: [
-        { name: 'Test1' },
-        { name: 'Test2' },
-        { name: 'Test3' },
-        { name: 'Test4' },
-        { name: 'Test5' },
-        { name: 'Test6' },
-        { name: 'Test7' },
-      ],
+      testData: [],
     };
+  },
+
+  mounted() {
+    for (let i = 0; i < 100; i++) this.testData.push({ name: `Test ${i}` });
   },
 };
 </script>
@@ -79,6 +75,21 @@ body {
   font-size: 15px;
   text-rendering: optimizeLegibility;
   color: $text;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  background: #212121;
+  border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #141414;
+  border-radius: 50px;
+}
+
+::-webkit-scrollbar-corner {
+  background: #000;
 }
 </style>
 <style src="./styles.scss" lang="scss" scoped />
