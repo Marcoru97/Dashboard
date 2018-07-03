@@ -3,23 +3,19 @@
 
 .dashboard-settings__wrapper {
     height: 100%;
-    // Maybe this looks fine :)
-}
-
-.dashboard-settings__toggle-button {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 25px;
-    height: 25px;
-    margin: 15px 20px 0 0;
-    z-index: 1;
 }
 
 .dashboard-settings__menu {
     width: 400px;
     height: 100%;
     background: $background-window-frame;
+}
+
+.dasboard-settings-menu__header {
+    display: flex;
+    align-items: baseline;
+    border-top: 2px solid $menu-horizontal-line;
+    border-bottom: 2px solid $menu-horizontal-line;
 }
 
 .dashbpard-settings-menu__header {
@@ -30,6 +26,13 @@
     letter-spacing: 0.05em;
     text-transform: uppercase;
     color: $head-line;
+    flex-grow: 1;
+}
+
+.dashboard-settings-menu__toggle-button {
+    width: 24px;
+    height: 24px;
+    margin: 0 10px 0 0;
 }
 
 .dashboard-settings-menu-line {
@@ -44,14 +47,14 @@
 
 .dashboard-settings__menu-animation {
     &-enter-active,  {
-        transition: transform $animationTimeFast $easeOutCubic;
+        transition: width $animationTimeFast $easeOutCubic;
     }
 
     &-leave-active {
-        transition: transform $animationTimeFast $easeInCubic;
+        transition: width $animationTimeFast $easeInCubic;
     }
 
     &-enter, &-leave-to {
-        transform: translateX(100%);
+        width: 0;
     }
 }

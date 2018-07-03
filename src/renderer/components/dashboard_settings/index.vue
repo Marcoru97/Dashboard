@@ -1,18 +1,17 @@
 <template>
     <div class="dashboard-settings__wrapper">
-        <icon-button
-            :icon="buttonIcon"
-            icon-color="light-gray"
-            class="dashboard-settings__toggle-button"
-            @click="settingsVisible = !settingsVisible"
-        />
         <transition name="dashboard-settings__menu-animation">
         <div class="dashboard-settings__menu" v-show="settingsVisible">
-            <section>
-                <hr class="dashboard-settings-menu-line" />
+            <section class="dasboard-settings-menu__header">
                 <h1 class="dashbpard-settings-menu__header">Settings</h1>
-                <hr class="dashboard-settings-menu-line" />
+                <icon-button
+                  icon="arrow_right"
+                  icon-color="light-gray"
+                  class="dashboard-settings-menu__toggle-button"
+                  @click="$emit('closeSettings')"
+                />
             </section>
+            <!-- <hr class="dashboard-settings-menu-line" /> -->
         </div>
         </transition>
     </div>
@@ -22,16 +21,14 @@ import IconButton from './../dashboard_button';
 
 export default {
   name: 'settings',
-  components: { IconButton },
-  data() {
-    return {
-      settingsVisible: false,
-    };
-  },
 
-  computed: {
-    buttonIcon() {
-      return this.settingsVisible ? 'arrow_right' : 'settings';
+  components: { IconButton },
+
+  props: {
+    settingsVisible: {
+      required: true,
+      type: Boolean,
+      default: false,
     },
   },
 };
