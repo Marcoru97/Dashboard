@@ -1,9 +1,11 @@
 <template>
     <div class="window-frame__frame">
         <div class="window-frame__control">
-            <icon-button icon="minus" icon-color="white" class="window-frame__min-icon" />
-            <icon-button icon="box" icon-color="light-gray" class="window-frame__max-icon" />
-            <icon-button icon="close" icon-color="light-gray" class="window-frame__close-icon" />
+            <!-- TODO: Do it better, pls dude -->
+            <icon-button icon="settings" icon-color="light-gray" class="window-frame__settings-icon" @click="$emit('toggleSettings')"/>
+            <icon-button icon="minus" icon-color="light-gray" class="window-frame__min-icon"/>
+            <icon-button icon="box" icon-color="light-gray" class="window-frame__max-icon"/>
+            <icon-button icon="close" icon-color="light-gray" class="window-frame__close-icon"/>
         </div>
         <div style="clear: both;"></div>
     </div>

@@ -23,12 +23,14 @@
       </symbol>
     </svg>
     <section class="app__frame">
-      <window-frame></window-frame>
+      <window-frame @toggleSettings="showSettings=!showSettings"></window-frame>
     </section>
     <section class="app__body">
-      <nav class="app-body__nav">
-        <settings></settings>
-      </nav>
+        <settings
+          class="app-body__nav"
+          :settingsVisible="showSettings"
+          @closeSettings="showSettings=false"
+        />
       <overview class="app-body__overview" :item-data="testData"></overview>
     </section>
   </div>
@@ -37,6 +39,7 @@
 <script>
 import Overview from './components/dashboard_grid';
 import Settings from './components/dashboard_settings';
+import IconButton from './components/dashboard_button';
 import WindowFrame from './components/window_frame';
 
 export default {
@@ -44,6 +47,7 @@ export default {
   components: {
     Overview,
     Settings,
+    IconButton,
 
     WindowFrame,
   },
@@ -51,6 +55,7 @@ export default {
   data() {
     return {
       testData: [],
+      showSettings: false,
     };
   },
 

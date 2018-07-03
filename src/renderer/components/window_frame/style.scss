@@ -23,6 +23,12 @@
     height: 18px;
 }
 
+.window-frame__settings-icon {
+    width: 14px;
+    height: 20px;
+    margin-right: 10px;
+}
+
 .window-frame__close-icon {
     &:hover {
         background: red !important;
