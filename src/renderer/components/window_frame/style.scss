@@ -2,7 +2,7 @@
 
 .window-frame__frame {
     width: 100%;
-    padding: 1px 0px 3px 0;
+    height: 30px;
     background: $background-window-frame;
     -webkit-user-select: none;
     -webkit-app-region: drag;
@@ -11,27 +11,26 @@
 .window-frame__control {
     display: flex;
     float: right;
-    height: 18px;
     margin: 0 3px 0 0;
     -webkit-app-region: no-drag;
 }
 
 .window-frame__max-icon,
 .window-frame__min-icon,
-.window-frame__close-icon {
+.window-frame__close-icon,
+.window-frame__settings-icon {
     width: 40px;
-    height: 18px;
+    height: 30px;
 }
 
 .window-frame__settings-icon {
-    width: 14px;
-    height: 20px;
-    margin-right: 10px;
+    margin-right: 20px;
 }
 
 .window-frame__close-icon {
     &:hover {
         background: $background-window-frame-hover-red !important;
+        fill: #FFFFFF !important;
     }
 }
 

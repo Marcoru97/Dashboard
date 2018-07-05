@@ -1,6 +1,6 @@
 <template>
   <button class="icon-button__button" @click="click">
-    <svg class="icon-button__button-icon" :class="`icon-button--color-${iconColor} icon-button--animation-${animation}`">
+    <svg :style="inlineIconStyle" :class="`icon-button--color-${iconColor} icon-button--animation-${animation}`">
       <use :xlink:href="`#${icon}`" />
     </svg>
   </button>
@@ -17,10 +17,17 @@ export default {
     iconColor: {
       type: String,
       required: false,
+      default: 'white',
     },
     animation: {
       type: String,
       required: false,
+      default: 'none',
+    },
+    inlineIconStyle: {
+      type: Object,
+      required: false,
+      default: () => ({ width: '100%', height: '100%' }),
     },
   },
 
