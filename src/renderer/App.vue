@@ -21,6 +21,10 @@
         <title>Arrow Right</title>
         <path d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"/>
       </symbol>
+      <symbol id="move" viewbox="0 0 24 24">
+        <title>Move</title>
+        <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"/>
+      </symbol>
     </svg>
     <section class="app__frame">
       <window-frame @toggleSettings="showSettings=!showSettings"></window-frame>
@@ -31,7 +35,7 @@
           :settingsVisible="showSettings"
           @closeSettings="showSettings=false"
         />
-      <overview class="app-body__overview" :item-data="testData"></overview>
+      <overview class="app-body__overview" :settingsVisible="showSettings"></overview>
     </section>
   </div>
 </template>
@@ -54,13 +58,8 @@ export default {
 
   data() {
     return {
-      testData: [],
       showSettings: false,
     };
-  },
-
-  mounted() {
-    for (let i = 0; i < 100; i++) this.testData.push({ name: `Test ${i}` });
   },
 };
 </script>
