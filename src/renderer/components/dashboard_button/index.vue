@@ -1,7 +1,7 @@
 <template>
   <button class="icon-button__button" @click="click">
     <svg :style="inlineIconStyle" :class="`icon-button--color-${iconColor} icon-button--animation-${animation}`">
-      <use :xlink:href="`#${icon}`" />
+      <use :xlink:href="`#${icon}`"/>
     </svg>
   </button>
 </template>
