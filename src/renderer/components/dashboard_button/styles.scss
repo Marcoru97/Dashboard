@@ -27,7 +27,15 @@
 }
 
 .icon-button--color-light-gray {
-    fill: $button-light;
+    fill: $button-light-gray;
+}
+
+.icon-button--color-gray {
+    fill: $button-gray;
+}
+
+.icon-button--color-dark-gray {
+    fill: $button-dark-gray;
 }
 
 .icon-button--color-white {
