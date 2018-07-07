@@ -4,10 +4,8 @@
       <div class="dashboard-settings__menu" v-show="settingsVisible">
         <section class="dasboard-settings-menu__header">
           <h1 class="dashboard-settings-menu__header">Settings</h1>
-          <!-- TODO: The icon behaviour is really strange -->
           <icon-button
             icon="arrow_right"
-            :inline-icon-style="{width: '100%', height: '75%'}"
             class="dashboard-settings-menu__toggle-button"
             @click="$emit('closeSettings')"
           />

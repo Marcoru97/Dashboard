@@ -17,13 +17,17 @@
         <title>Box</title>
         <path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/>
       </symbol>
-      <symbol id="arrow_right" viewbox="0 0 24 24">
+      <symbol id="arrow_right" viewBox="0 0 24 24">
         <title>Arrow Right</title>
         <path d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"/>
       </symbol>
-      <symbol id="move" viewbox="0 0 24 24">
+      <symbol id="move" viewBox="0 0 24 24">
         <title>Move</title>
         <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"/>
+      </symbol>
+      <symbol id="plus" viewBox="0 0 24 24">
+        <title>Plus</title>
+        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
       </symbol>
     </svg>
     <section class="app__frame">

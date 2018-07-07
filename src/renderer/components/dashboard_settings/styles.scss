@@ -13,7 +13,7 @@
 
 .dasboard-settings-menu__header {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     border-top: 2px solid $menu-horizontal-line;
     border-bottom: 2px solid $menu-horizontal-line;
 }
@@ -30,9 +30,8 @@
 }
 
 .dashboard-settings-menu__toggle-button {
-    width: 30px;
+    width: 50px;
     height: 30px;
-    margin: 0 10px 0 0;
 }
 
 .dashboard-settings-menu-line {
