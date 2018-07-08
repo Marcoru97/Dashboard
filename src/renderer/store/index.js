@@ -10,6 +10,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     itemData: [],
+    itemId: 0,
   },
 
   mutations,
