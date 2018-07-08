@@ -21,6 +21,18 @@
         <title>Arrow Right</title>
         <path d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"/>
       </symbol>
+      <symbol id="arrow_left" viewBox="0 0 24 24">
+        <title>Arrow Left</title>
+        <path d="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z"/>
+      </symbol>
+      <symbol id="arrow_down" viewBox="0 0 24 24">
+        <title>Arrow Down</title>
+        <path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/>
+      </symbol>
+      <symbol id="arrow_up" viewBox="0 0 24 24">
+        <title>Arrow Up</title>
+        <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+      </symbol>
       <symbol id="move" viewBox="0 0 24 24">
         <title>Move</title>
         <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"/>

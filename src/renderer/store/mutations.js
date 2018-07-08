@@ -12,4 +12,12 @@ export default {
     });
     state.itemId++;
   },
+
+  [types.mutations.ITEM_DATA_SIZE_WIDTH_CHANGE](state, { id, width }) {
+    state.itemData[id].size.width = Math.max(width, 1);
+  },
+
+  [types.mutations.ITEM_DATA_SIZE_HEIGHT_CHANGE](state, { id, height }) {
+    state.itemData[id].size.height = Math.max(height, 1);
+  },
 };
