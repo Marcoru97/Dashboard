@@ -9,7 +9,7 @@ if (!process.env.IS_WEB) Vue.use(require('vue-electron'));
 Vue.config.productionTip = false;
 
 ipcRenderer.on('mainConfiguration', (event, message) => {
-  console.log(message);
+  store.commit(types.mutations.SETTINGS_ICON_VISIBLE_CHANGE, message.showSettingsIcon);
 });
 
 ipcRenderer.on('itemDataConfiguration', (event, message) => {

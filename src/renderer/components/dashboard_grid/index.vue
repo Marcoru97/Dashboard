@@ -73,6 +73,10 @@ export default {
   },
 
   methods: {
+    ...mapMutations({
+      addItemData: types.mutations.ITEM_DATA_ADD,
+    }),
+
     calculateSize({ width, height }) {
       const margin = 10;
       const boxSize = 250;

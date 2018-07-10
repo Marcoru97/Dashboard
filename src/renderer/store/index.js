@@ -11,6 +11,8 @@ export default new Vuex.Store({
   state: {
     itemData: [],
     itemId: 0,
+
+    settingsIconVisible: true,
   },
 
   mutations,
