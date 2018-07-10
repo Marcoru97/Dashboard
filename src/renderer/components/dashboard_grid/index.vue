@@ -61,19 +61,6 @@ export default {
         this.windowWidth = this.$refs.dashboardGrid.clientWidth;
       }),
     );
-
-    this.addItemData({
-      name: `Test`,
-      size: { width: 6, height: 1 },
-    });
-    this.addItemData({
-      name: `Test`,
-      size: { width: 1, height: 1 },
-    });
-    this.addItemData({
-      name: `Test`,
-      size: { width: 3, height: 1 },
-    });
   },
 
   destroyed() {
@@ -86,10 +73,6 @@ export default {
   },
 
   methods: {
-    ...mapMutations({
-      addItemData: types.mutations.ITEM_DATA_ADD,
-    }),
-
     calculateSize({ width, height }) {
       const margin = 10;
       const boxSize = 250;

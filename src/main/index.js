@@ -1,9 +1,8 @@
 import { app, BrowserWindow, Menu } from 'electron';
+import fs from 'fs';
 
-/**
- * Set `__static` path to static files in production
- * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
- */
+import { MainConfiguration, ItemDataConfiguration } from './configuration/configuration.js';
+
 if (process.env.NODE_ENV !== 'development') {
   global.__static = require('path')
     .join(__dirname, '/static')
@@ -17,9 +16,6 @@ const winURL =
     : `file://${__dirname}/index.html`;
 
 function createWindow() {
-  /**
-   * Initial window options
-   */
   mainWindow = new BrowserWindow({
     width: 1000,
     height: 563,
@@ -29,6 +25,14 @@ function createWindow() {
   mainWindow.loadURL(winURL);
 
   mainWindow.setMenu(null);
+
+  mainWindow.webContents.on('did-finish-load', () => {
+    mainWindow.webContents.send('mainConfiguration', MainConfiguration.getConfiguration());
+  });
+
+  mainWindow.webContents.on('did-finish-load', () => {
+    mainWindow.webContents.send('itemDataConfiguration', ItemDataConfiguration.getConfiguration());
+  });
 
   mainWindow.on('closed', () => {
     mainWindow = null;
