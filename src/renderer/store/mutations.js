@@ -24,4 +24,8 @@ export default {
   [types.mutations.SETTINGS_ICON_VISIBLE_CHANGE](state, visible) {
     state.settingsIconVisible = visible;
   },
+
+  [types.mutations.ITEM_EDIT_MODE_CHANGE](state, visible) {
+    state.itemEditMode = visible;
+  },
 };

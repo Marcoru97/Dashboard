@@ -1,13 +1,23 @@
 <template>
     <div class="dashboard-grid__grid" ref="dashboardGrid">
-      <div v-for="(item, key) in itemData" class="dashboard-grid-item__wrapper" :style="calculateSize(item.size)" :key="item.position">
+      <div
+        v-for="(item, key) in itemData"
+        class="dashboard-grid-item__wrapper"
+        :style="buildStyle(item.size, item.background)"
+        :key="item.position"
+      >
         <transition name="dashboard-grid-item--animation">
-          <item-edit v-show="!settingsVisible" :item-id="key"/>
+          <item-edit v-show="itemEditMode" :item-id="key"/>
         </transition>
         <async-example>({{item.position}}) {{item.name}}</async-example>
       </div>
       <div class="dashboard-grid__new-item">
-        <icon-button @click="addItemOnClick" icon="plus" class="dashboard-grid-new-item__plus-button" icon-color="dark-gray" />
+        <icon-button
+          @click="addItemOnClick"
+          icon="plus"
+          class="dashboard-grid-new-item__plus-button"
+          icon-color="dark-gray"
+        />
       </div>
     </div>
 </template>
@@ -77,7 +87,7 @@ export default {
       addItemData: types.mutations.ITEM_DATA_ADD,
     }),
 
-    calculateSize({ width, height }) {
+    buildStyle({ width, height }, backgroundColor) {
       const margin = 10;
       const boxSize = 250;
       const newWidth = Math.min(this.getMaxWidthUnits, width);
@@ -87,6 +97,7 @@ export default {
       return {
         width: `${resultWidth}px`,
         height: `${resultHeight}px`,
+        'background-color': backgroundColor,
       };
     },
 
@@ -99,7 +110,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['itemData']),
+    ...mapState(['itemData', 'itemEditMode']),
 
     getMaxWidthUnits() {
       return Math.floor(this.windowWidth / (250 + 10));

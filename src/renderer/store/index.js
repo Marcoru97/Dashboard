@@ -13,6 +13,7 @@ export default new Vuex.Store({
     itemId: 0,
 
     settingsIconVisible: true,
+    itemEditMode: false,
   },
 
   mutations,
