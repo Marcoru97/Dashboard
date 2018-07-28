@@ -47,7 +47,6 @@
     </section>
     <section class="app__body">
         <settings
-          class="app-body__nav"
           :settingsVisible="showSettings"
           @closeSettings="showSettings=false"
         />
@@ -85,6 +84,8 @@ export default {
 
 html,
 body {
+  width: 100%;
+  height: 100%;
   top: 0;
   left: 0;
   margin: 0;
@@ -95,6 +96,8 @@ body {
   font-size: 15px;
   text-rendering: optimizeLegibility;
   color: $text;
+  background: $background;
+  overflow: hidden;
 }
 
 ::-webkit-scrollbar {

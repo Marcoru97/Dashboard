@@ -1,9 +1,12 @@
 import Vue from 'vue';
+import VueShortcut from 'vue-shortkey';
 import store from './store';
 import types from './store/types';
 import { ipcRenderer } from 'electron';
 
 import App from './App';
+
+Vue.use(VueShortcut);
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'));
 Vue.config.productionTip = false;

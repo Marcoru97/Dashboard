@@ -1,7 +1,8 @@
 <template>
-  <div class="dashboard-settings__wrapper">
-    <transition name="dashboard-settings__menu-animation">
-      <div class="dashboard-settings__menu" v-show="settingsVisible">
+  <transition name="dashboard-settings__menu-animation">
+    <div class="dashboard-settings__wrapper" v-show="settingsVisible" v-shortkey.push="['esc']" @shortkey="$emit('closeSettings')">
+      <div class="dashboard-settings__background"></div>
+      <div class="dashboard-settings__menu">
         <section class="dasboard-settings-menu__header">
           <h1 class="dashboard-settings-menu__header">Settings</h1>
           <icon-button
@@ -14,8 +15,8 @@
         <button @click="changeItemEditMode(!itemEditMode); $emit('closeSettings')" style="margin: 20px;">Item Edit Mode</button>
         <hr class="dashboard-settings-menu-line" />
       </div>
-    </transition>
-  </div>
+    </div>
+  </transition>
 </template>
 <script>
 import IconButton from './../dashboard_button';
@@ -35,6 +36,12 @@ export default {
     },
   },
 
+  data() {
+    return {
+      //backgroundDiv,
+    };
+  },
+
   computed: {
     ...mapState(['itemEditMode']),
   },
@@ -46,4 +53,4 @@ export default {
   },
 };
 </script>
-<style lang="scss" src="./styles.scss" scoped />
+<style lang="scss" src="./styles.scss" scoped></style>
