@@ -36,12 +36,6 @@ export default {
     },
   },
 
-  data() {
-    return {
-      //backgroundDiv,
-    };
-  },
-
   computed: {
     ...mapState(['itemEditMode']),
   },
