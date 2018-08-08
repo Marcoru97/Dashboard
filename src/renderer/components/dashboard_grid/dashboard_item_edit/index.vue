@@ -1,39 +1,12 @@
 <template>
   <div class="dashboard-grid-item__edit">
-    <div class="dashboard-grid-item-edit__container">
-      <div class="dashboard-grid-item-edit__content">
-      </div>
-      <div class="dashboard-grid-item-edit__width">
-        <icon-button
-          icon="arrow_left"
-          class="dashboard-grid-item-edit__left-icon"
-          icon-color="dark-gray"
-          @click="changeItemWidth(-1)"
-        />
-        <icon-button
-          icon="arrow_right"
-          class="dashboard-grid-item-edit__rigth-icon"
-          icon-color="dark-gray"
-          @click="changeItemWidth(1)"
-        />
-      </div>
+    <div class="dashboard-grid-item-edit__row dashboard-grid-item-edit__row--grow">
+      <div class="dashboard-grid-item-edit__content"></div>
+      <div class="dashboard-grid-item-edit__resize-east-bar" ref="itemEditWidth"></div>
     </div>
-    <div class="dashboard-grid-item-edit__height">
-      <div class="dashboard-grid-item-edit-height__buttons">
-        <icon-button
-          icon="arrow_up"
-          class="dashboard-grid-item-edit__up-icon"
-          icon-color="dark-gray"
-          @click="changeItemHeight(-1)"
-        />
-        <icon-button
-          icon="arrow_down"
-          class="dashboard-grid-item-edit__down-icon"
-          icon-color="dark-gray"
-          @click="changeItemHeight(1)"
-        />
-      </div>
-      <div class="dashboard-grid-item-edit-heigth__spacer"></div>
+    <div class="dashboard-grid-item-edit__row">
+      <div class="dashboard-grid-item-edit__resize-north-bar" ref="itemEditHeight"></div>
+      <div class="dashboard-grid-item-edit__resize-south-east-bar" ref="itemEditBoth"></div>
     </div>
   </div>
 </template>
@@ -48,7 +21,11 @@ export default {
   name: 'item-edit',
 
   data() {
-    return {};
+    return {
+      bodyElement: null,
+
+      mouseDownMode: null,
+    };
   },
 
   props: {
@@ -62,11 +39,90 @@ export default {
     IconButton,
   },
 
+  mounted() {
+    this.bodyElement = document.getElementsByTagName('body')[0];
+    this.$refs.itemEditWidth.addEventListener('mousedown', this.itemWidthMouseDownListener);
+    this.$refs.itemEditHeight.addEventListener('mousedown', this.itemHeightMouseDownListener);
+    this.$refs.itemEditBoth.addEventListener('mousedown', this.itemBothMouseDownListener);
+
+    document.addEventListener('mouseup', this.itemMouseUpListener);
+    document.addEventListener('mousemove', this.itemMouseMoveListener);
+  },
+
+  beforeDestroy() {
+    this.$refs.itemEditWidth.removeEventListener('mousedown', this.itemWidthMouseDownListener);
+    this.$refs.itemEditHeight.removeEventListener('mousedown', this.itemHeightMouseDownListener);
+    this.$refs.itemEditBoth.removeEventListener('mousedown', this.itemBothMouseDownListener);
+
+    document.removeEventListener('mouseup', this.itemMouseUpListener);
+    document.removeEventListener('mousemove', this.itemMouseMoveListener);
+  },
+
   methods: {
     ...mapMutations({
       changeItemDataSizeWidth: types.mutations.ITEM_DATA_SIZE_WIDTH_CHANGE,
       changeItemDataSizeHeight: types.mutations.ITEM_DATA_SIZE_HEIGHT_CHANGE,
     }),
+
+    itemMouseMoveListener(event) {
+      if (this.mouseDownMode !== null) {
+        switch (this.mouseDownMode) {
+          case 'ITEM_WIDTH':
+            {
+              const currentWidth = this.itemData[this.itemId].size.width * this.itemSize;
+              if (Math.abs(event.clientX - currentWidth) >= 250) {
+                this.changeItemWidth(Math.ceil((event.clientX - currentWidth) / 250));
+              }
+            }
+            break;
+          case 'ITEM_HEIGHT':
+            {
+              const currentHeight = this.itemData[this.itemId].size.height * this.itemSize;
+              if (Math.abs(event.clientY - currentHeight) >= 250) {
+                this.changeItemHeight(Math.ceil((event.clientY - currentHeight) / 250));
+              }
+            }
+            break;
+          case 'ITEM_BOTH':
+            {
+              const currentWidth = this.itemData[this.itemId].size.width * this.itemSize;
+              const currentHeight = this.itemData[this.itemId].size.height * this.itemSize;
+              if (Math.abs(event.clientY - currentHeight) >= 250) {
+                this.changeItemHeight(Math.ceil((event.clientY - currentHeight) / 250));
+              }
+              if (Math.abs(event.clientX - currentWidth) >= 250) {
+                this.changeItemWidth(Math.ceil((event.clientX - currentWidth) / 250));
+              }
+            }
+            break;
+        }
+      }
+    },
+
+    itemWidthMouseDownListener() {
+      this.mouseDownMode = 'ITEM_WIDTH';
+      this.bodyElement.style.cursor = 'e-resize';
+      this.bodyElement.style['user-select'] = 'none';
+    },
+
+    itemHeightMouseDownListener() {
+      this.mouseDownMode = 'ITEM_HEIGHT';
+      this.bodyElement.style.cursor = 'n-resize';
+      this.bodyElement.style['user-select'] = 'none';
+    },
+
+    itemBothMouseDownListener() {
+      this.mouseDownMode = 'ITEM_BOTH';
+      this.bodyElement.style.cursor = 'se-resize';
+      this.bodyElement.style['user-select'] = 'none';
+    },
+
+    itemMouseUpListener() {
+      this.mouseDownMode = null;
+      this.bodyElement.style.cursor = null;
+      this.bodyElement.style['user-select'] = null;
+    },
+
     changeItemWidth(ammount) {
       const currentWidth = this.itemData[this.itemId].size.width;
       this.changeItemDataSizeWidth({ id: this.itemId, width: currentWidth + ammount });
@@ -79,7 +135,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['itemData']),
+    ...mapState(['itemData', 'itemSize', 'itemMargin']),
   },
 };
 </script>

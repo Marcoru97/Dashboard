@@ -11,6 +11,8 @@ export default new Vuex.Store({
   state: {
     itemData: [],
     itemId: 0,
+    itemSize: 250,
+    itemMargin: 5,
 
     settingsIconVisible: true,
     itemEditMode: false,

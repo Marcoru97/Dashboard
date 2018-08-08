@@ -1,35 +1,21 @@
 @import '../../../variables/colors';
 
+$resizeBarSize: 10px;
+
 .dashboard-grid-item__edit {
   display: flex;
   width: 100%;
   height: 100%;
   position: absolute;
   flex-direction: column;
+  background: url('~@/assets/opacity_05.png');
 }
 
-.dashboard-grid-item-edit__up-icon,
-.dashboard-grid-item-edit__down-icon {
-  width: 112px;
-  height: 25px;
-}
-
-.dashboard-grid-item-edit__left-icon,
-.dashboard-grid-item-edit__rigth-icon, {
-  width: 25px;
-  height: 112px;
-}
-
-.dashboard-grid-item-edit__width {
+.dashboard-grid-item-edit__row {
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  border-bottom: 1px dashed #202020;
-  background: $foreground;
 }
 
-.dashboard-grid-item-edit__container {
-  display: flex;
+.dashboard-grid-item-edit__row--grow {
   flex-grow: 1;
 }
 
@@ -39,19 +25,20 @@
   border-bottom: 1px dashed #202020;
 }
 
-.dashboard-grid-item-edit__height {
-  display: flex;
-  background: $foreground;
+.dashboard-grid-item-edit__resize-east-bar {
+  width: $resizeBarSize;
+  border-bottom: 1px dashed #202020;
+  cursor: e-resize;
 }
 
-.dashboard-grid-item-edit-height__buttons {
-  display: flex;
-  justify-content: space-around;
+.dashboard-grid-item-edit__resize-north-bar {
   flex-grow: 1;
   border-right: 1px dashed #202020;
+  cursor: n-resize;
 }
 
-.dashboard-grid-item-edit-heigth__spacer {
-  width: 25px;
-  height: 25px;
+.dashboard-grid-item-edit__resize-south-east-bar {
+  width: $resizeBarSize;
+  height: $resizeBarSize;
+  cursor: se-resize;
 }
