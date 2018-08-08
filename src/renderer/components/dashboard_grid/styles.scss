@@ -2,6 +2,7 @@
 @import "./../../variables/animation";
 
 .dashboard-grid__grid {
+    width: 100%;
     display: flex;
     align-content: flex-start;
     flex-direction: row;

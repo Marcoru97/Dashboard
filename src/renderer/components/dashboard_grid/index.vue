@@ -1,25 +1,26 @@
 <template>
-    <div class="dashboard-grid__grid" ref="dashboardGrid">
-      <div
-        v-for="(item, key) in itemData"
-        class="dashboard-grid-item__wrapper"
-        :style="buildStyle(item.size, item.background)"
-        :key="item.position"
-      >
-        <transition name="dashboard-grid-item--animation">
-          <item-edit v-show="itemEditMode" :item-id="key"/>
-        </transition>
-        <async-example>({{item.position}}) {{item.name}}</async-example>
-      </div>
-      <div class="dashboard-grid__new-item">
-        <icon-button
-          @click="addItemOnClick"
-          icon="plus"
-          class="dashboard-grid-new-item__plus-button"
-          icon-color="dark-gray"
-        />
-      </div>
+  <div class="dashboard-grid__grid" ref="dashboardGrid">
+    <div
+      v-for="(item, key) in itemData"
+      class="dashboard-grid-item__wrapper"
+      :key="item.position"
+      :data-key="key"
+      ref="dashboardGridItems"
+    >
+      <transition name="dashboard-grid-item--animation">
+        <item-edit v-show="itemEditMode" :item-id="key"/>
+      </transition>
+      <async-example>({{item.position}}) {{item.name}}</async-example>
     </div>
+    <div v-show="itemEditMode" class="dashboard-grid__new-item">
+      <icon-button
+        @click="addItemOnClick"
+        icon="plus"
+        class="dashboard-grid-new-item__plus-button"
+        icon-color="dark-gray"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -35,7 +36,6 @@ import { throttle } from './../../helpers';
 
 Vue.component('async-example', function(resolve, reject) {
   setTimeout(function() {
-    // Pass the component definition to the resolve callback
     resolve({
       template: '<div><slot></slot></div>',
     });
@@ -48,6 +48,7 @@ export default {
   data() {
     return {
       windowWidth: 0,
+      isDirty: false,
     };
   },
 
@@ -65,21 +66,19 @@ export default {
 
   mounted() {
     this.windowWidth = this.$refs.dashboardGrid.clientWidth;
-    window.addEventListener(
-      'resize',
-      throttle(() => {
-        this.windowWidth = this.$refs.dashboardGrid.clientWidth;
-      }),
-    );
+    this.isDirty = true;
+    window.addEventListener('resize', this.resizeEventListener);
+  },
+
+  beforeUpdate() {
+    // TODO: Handle it better
+    if (this.isDirty) {
+      this.updateStyle();
+    }
   },
 
   destroyed() {
-    window.removeEventListener(
-      'resize',
-      throttle(() => {
-        this.windowWidth = this.$refs.dashboardGrid.clientWidth;
-      }),
-    );
+    window.removeEventListener('resize', this.resizeEventListener);
   },
 
   methods: {
@@ -87,18 +86,28 @@ export default {
       addItemData: types.mutations.ITEM_DATA_ADD,
     }),
 
-    buildStyle({ width, height }, backgroundColor) {
+    updateStyle() {
+      const items = this.$refs.dashboardGridItems;
       const margin = 10;
       const boxSize = 250;
-      const newWidth = Math.min(this.getMaxWidthUnits, width);
-      const resultWidth = newWidth * boxSize + (newWidth - 1) * margin;
-      const resultHeight = height * boxSize + (height - 1) * margin;
 
-      return {
-        width: `${resultWidth}px`,
-        height: `${resultHeight}px`,
-        'background-color': backgroundColor,
-      };
+      if (!items) return;
+      items.forEach(item => {
+        const itemSize = this.itemData[item.dataset.key].size;
+        const newWidth = Math.min(this.getMaxWidthUnits, itemSize.width);
+        const resultWidth = newWidth * boxSize + (newWidth - 1) * margin;
+        const resultHeight = itemSize.height * boxSize + (itemSize.height - 1) * margin;
+
+        item.style.width = `${resultWidth}px`;
+        item.style.height = `${resultHeight}px`;
+      });
+    },
+
+    resizeEventListener() {
+      throttle(() => {
+        this.windowWidth = this.$refs.dashboardGrid.clientWidth;
+        this.updateStyle();
+      })();
     },
 
     addItemOnClick() {
@@ -114,6 +123,15 @@ export default {
 
     getMaxWidthUnits() {
       return Math.floor(this.windowWidth / (250 + 10));
+    },
+  },
+
+  watch: {
+    itemData: {
+      handler(oldVal, newVal) {
+        this.updateStyle();
+      },
+      deep: true,
     },
   },
 };
