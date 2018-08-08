@@ -50,7 +50,7 @@
           :settingsVisible="showSettings"
           @closeSettings="showSettings=false"
         />
-      <overview class="app-body__overview" :settingsVisible="showSettings"></overview>
+      <overview :settingsVisible="showSettings"></overview>
     </section>
   </div>
 </template>
