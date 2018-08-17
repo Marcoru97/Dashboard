@@ -2,11 +2,11 @@
   <div class="dashboard-grid-item__edit">
     <div class="dashboard-grid-item-edit__row dashboard-grid-item-edit__row--grow">
       <div class="dashboard-grid-item-edit__content"></div>
-      <div class="dashboard-grid-item-edit__resize-east-bar" ref="itemEditWidth"></div>
+      <div class="dashboard-grid-item-edit__resize-east-bar" ref="itemEditWidth" data-resize-mode="ITEM_WIDTH"></div>
     </div>
     <div class="dashboard-grid-item-edit__row">
-      <div class="dashboard-grid-item-edit__resize-north-bar" ref="itemEditHeight"></div>
-      <div class="dashboard-grid-item-edit__resize-south-east-bar" ref="itemEditBoth"></div>
+      <div class="dashboard-grid-item-edit__resize-north-bar" ref="itemEditHeight" data-resize-mode="ITEM_HEIGHT"></div>
+      <div class="dashboard-grid-item-edit__resize-south-east-bar" ref="itemEditBoth" data-resize-mode="ITEM_BOTH"></div>
     </div>
   </div>
 </template>
@@ -22,9 +22,8 @@ export default {
 
   data() {
     return {
-      bodyElement: null,
-
       mouseDownMode: null,
+      itemPosition: { x: 0, y: 0 },
     };
   },
 
@@ -40,19 +39,18 @@ export default {
   },
 
   mounted() {
-    this.bodyElement = document.getElementsByTagName('body')[0];
-    this.$refs.itemEditWidth.addEventListener('mousedown', this.itemWidthMouseDownListener);
-    this.$refs.itemEditHeight.addEventListener('mousedown', this.itemHeightMouseDownListener);
-    this.$refs.itemEditBoth.addEventListener('mousedown', this.itemBothMouseDownListener);
+    this.$refs.itemEditWidth.addEventListener('mousedown', this.itemMouseDownListener);
+    this.$refs.itemEditHeight.addEventListener('mousedown', this.itemMouseDownListener);
+    this.$refs.itemEditBoth.addEventListener('mousedown', this.itemMouseDownListener);
 
     document.addEventListener('mouseup', this.itemMouseUpListener);
     document.addEventListener('mousemove', this.itemMouseMoveListener);
   },
 
   beforeDestroy() {
-    this.$refs.itemEditWidth.removeEventListener('mousedown', this.itemWidthMouseDownListener);
-    this.$refs.itemEditHeight.removeEventListener('mousedown', this.itemHeightMouseDownListener);
-    this.$refs.itemEditBoth.removeEventListener('mousedown', this.itemBothMouseDownListener);
+    this.$refs.itemEditWidth.removeEventListener('mousedown', this.itemMouseDownListener);
+    this.$refs.itemEditHeight.removeEventListener('mousedown', this.itemMouseDownListener);
+    this.$refs.itemEditBoth.removeEventListener('mousedown', this.itemMouseDownListener);
 
     document.removeEventListener('mouseup', this.itemMouseUpListener);
     document.removeEventListener('mousemove', this.itemMouseMoveListener);
@@ -64,78 +62,84 @@ export default {
       changeItemDataSizeHeight: types.mutations.ITEM_DATA_SIZE_HEIGHT_CHANGE,
     }),
 
+    itemMouseDownListener(event) {
+      this.mouseDownMode = event.target.dataset.resizeMode;
+      this.recalculateItemPosition();
+
+      switch (this.mouseDownMode) {
+        case 'ITEM_WIDTH':
+          document.body.style.cursor = 'e-resize';
+          break;
+        case 'ITEM_HEIGHT':
+          document.body.style.cursor = 'n-resize';
+          break;
+        case 'ITEM_BOTH':
+          document.body.style.cursor = 'se-resize';
+          break;
+      }
+
+      document.body.style['user-select'] = 'none';
+    },
+
     itemMouseMoveListener(event) {
       if (this.mouseDownMode !== null) {
-        switch (this.mouseDownMode) {
-          case 'ITEM_WIDTH':
-            {
-              const currentWidth = this.itemData[this.itemId].size.width * this.itemSize;
-              if (Math.abs(event.clientX - currentWidth) >= 250) {
-                this.changeItemWidth(Math.ceil((event.clientX - currentWidth) / 250));
-              }
-            }
-            break;
-          case 'ITEM_HEIGHT':
-            {
-              const currentHeight = this.itemData[this.itemId].size.height * this.itemSize;
-              if (Math.abs(event.clientY - currentHeight) >= 250) {
-                this.changeItemHeight(Math.ceil((event.clientY - currentHeight) / 250));
-              }
-            }
-            break;
-          case 'ITEM_BOTH':
-            {
-              const currentWidth = this.itemData[this.itemId].size.width * this.itemSize;
-              const currentHeight = this.itemData[this.itemId].size.height * this.itemSize;
-              if (Math.abs(event.clientY - currentHeight) >= 250) {
-                this.changeItemHeight(Math.ceil((event.clientY - currentHeight) / 250));
-              }
-              if (Math.abs(event.clientX - currentWidth) >= 250) {
-                this.changeItemWidth(Math.ceil((event.clientX - currentWidth) / 250));
-              }
-            }
-            break;
+        if (this.mouseDownMode === 'ITEM_WIDTH' || this.mouseDownMode === 'ITEM_BOTH') {
+          const currentWidth = this.item.size.width * this.itemSize;
+          const relativeMouseX = event.clientX - this.itemPosition.x - currentWidth;
+          if (
+            Math.abs(relativeMouseX) >= this.itemSize &&
+            !(this.item.size.width == 1 && relativeMouseX < 0)
+          ) {
+            this.changeItemWidth(Math.ceil(relativeMouseX / this.itemSize));
+          }
+        }
+
+        if (this.mouseDownMode === 'ITEM_HEIGHT' || this.mouseDownMode === 'ITEM_BOTH') {
+          const currentHeight = this.item.size.height * this.itemSize;
+          const relativeMouseY = event.clientY - this.itemPosition.y - currentHeight;
+          if (
+            Math.abs(relativeMouseY) >= this.itemSize &&
+            !(this.item.size.height == 1 && relativeMouseY < 0)
+          ) {
+            this.changeItemHeight(Math.ceil(relativeMouseY / this.itemSize));
+          }
         }
       }
     },
 
-    itemWidthMouseDownListener() {
-      this.mouseDownMode = 'ITEM_WIDTH';
-      this.bodyElement.style.cursor = 'e-resize';
-      this.bodyElement.style['user-select'] = 'none';
-    },
-
-    itemHeightMouseDownListener() {
-      this.mouseDownMode = 'ITEM_HEIGHT';
-      this.bodyElement.style.cursor = 'n-resize';
-      this.bodyElement.style['user-select'] = 'none';
-    },
-
-    itemBothMouseDownListener() {
-      this.mouseDownMode = 'ITEM_BOTH';
-      this.bodyElement.style.cursor = 'se-resize';
-      this.bodyElement.style['user-select'] = 'none';
-    },
-
     itemMouseUpListener() {
       this.mouseDownMode = null;
-      this.bodyElement.style.cursor = null;
-      this.bodyElement.style['user-select'] = null;
+      document.body.style.cursor = null;
+      document.body.style['user-select'] = null;
+    },
+
+    recalculateItemPosition() {
+      // Really heavy methode... Maybe a better solution?
+      const itemBounding = this.$el.getBoundingClientRect();
+      this.itemPosition.x = itemBounding.left;
+      this.itemPosition.y = itemBounding.top;
+      console.log(this.itemPosition.x);
     },
 
     changeItemWidth(ammount) {
-      const currentWidth = this.itemData[this.itemId].size.width;
+      const currentWidth = this.item.size.width;
       this.changeItemDataSizeWidth({ id: this.itemId, width: currentWidth + ammount });
+      this.recalculateItemPosition();
     },
 
     changeItemHeight(ammount) {
-      const currentHeight = this.itemData[this.itemId].size.height;
+      const currentHeight = this.item.size.height;
       this.changeItemDataSizeHeight({ id: this.itemId, height: currentHeight + ammount });
+      this.recalculateItemPosition();
     },
   },
 
   computed: {
     ...mapState(['itemData', 'itemSize', 'itemMargin']),
+
+    item() {
+      return this.itemData[this.itemId];
+    },
   },
 };
 </script>

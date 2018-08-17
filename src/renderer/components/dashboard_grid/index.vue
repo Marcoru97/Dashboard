@@ -70,7 +70,7 @@ export default {
     window.addEventListener('resize', this.resizeEventListener);
   },
 
-  beforeUpdate() {
+  updated() {
     // TODO: Handle it better
     if (this.isDirty) {
       this.updateStyle();
