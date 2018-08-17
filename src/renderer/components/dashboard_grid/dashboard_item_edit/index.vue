@@ -118,7 +118,6 @@ export default {
       const itemBounding = this.$el.getBoundingClientRect();
       this.itemPosition.x = itemBounding.left;
       this.itemPosition.y = itemBounding.top;
-      console.log(this.itemPosition.x);
     },
 
     changeItemWidth(ammount) {
