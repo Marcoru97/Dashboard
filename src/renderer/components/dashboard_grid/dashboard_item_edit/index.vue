@@ -88,7 +88,7 @@ export default {
           const relativeMouseX = event.clientX - this.itemPosition.x - currentWidth;
           if (
             Math.abs(relativeMouseX) >= this.itemSize &&
-            !(this.item.size.width == 1 && relativeMouseX < 0)
+            !(this.item.size.width === 1 && relativeMouseX < 0)
           ) {
             this.changeItemWidth(Math.ceil(relativeMouseX / this.itemSize));
           }
@@ -99,7 +99,7 @@ export default {
           const relativeMouseY = event.clientY - this.itemPosition.y - currentHeight;
           if (
             Math.abs(relativeMouseY) >= this.itemSize &&
-            !(this.item.size.height == 1 && relativeMouseY < 0)
+            !(this.item.size.height === 1 && relativeMouseY < 0)
           ) {
             this.changeItemHeight(Math.ceil(relativeMouseY / this.itemSize));
           }

@@ -1,7 +1,10 @@
 import { app, BrowserWindow, Menu } from 'electron';
-import fs from 'fs';
 
-import { MainConfiguration, ItemDataConfiguration } from './configuration/configuration.js';
+import {
+  MainConfiguration,
+  ItemDataConfiguration,
+  CONFIG_DIR,
+} from './configuration/configuration.js';
 
 if (process.env.NODE_ENV !== 'development') {
   global.__static = require('path')
@@ -27,10 +30,8 @@ function createWindow() {
   mainWindow.setMenu(null);
 
   mainWindow.webContents.on('did-finish-load', () => {
+    mainWindow.webContents.send('configDir', CONFIG_DIR);
     mainWindow.webContents.send('mainConfiguration', MainConfiguration.getConfiguration());
-  });
-
-  mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.webContents.send('itemDataConfiguration', ItemDataConfiguration.getConfiguration());
   });
 

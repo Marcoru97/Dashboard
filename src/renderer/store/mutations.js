@@ -28,4 +28,8 @@ export default {
   [types.mutations.ITEM_EDIT_MODE_CHANGE](state, visible) {
     state.itemEditMode = visible;
   },
+
+  [types.mutations.CONFIG_DIR_SET](state, dir) {
+    state.appDir = dir;
+  },
 };

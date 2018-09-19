@@ -16,6 +16,8 @@ export default new Vuex.Store({
 
     settingsIconVisible: true,
     itemEditMode: false,
+
+    appDir: '',
   },
 
   mutations,

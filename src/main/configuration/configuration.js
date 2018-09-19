@@ -2,8 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import { app } from 'electron';
 
-const name = 'dashy';
-const fileExtension = '.json';
+export const CONFIG_DIR = path.normalize(path.join(app.getPath('appData'), 'dashy'));
+export const FILE_EXTENSION = '.json';
 
 const mainSettings = {
   showSettingsIcon: true,
@@ -12,14 +12,11 @@ const mainSettings = {
 const itemDataSettings = [
   {
     position: 0,
-    name: 'Welcome',
     module: 'welcome',
-
     size: { width: 8, height: 1 },
   },
   {
     position: 1,
-    name: 'Getting started',
     module: 'getting_started',
     size: { width: 8, height: 1 },
   },
@@ -29,8 +26,8 @@ class Configuration {
   constructor(dir, file, defaultSettings) {
     this.file = file;
     this.settings = defaultSettings;
-    this.dirPath = path.normalize(path.join(app.getPath('appData'), name, dir));
-    this.completePath = this.dirPath + path.sep + this.file + fileExtension;
+    this.dirPath = path.join(CONFIG_DIR, dir);
+    this.completePath = this.dirPath + path.sep + this.file + FILE_EXTENSION;
 
     // Make dir if not exists
     if (!fs.existsSync(this.dirPath)) {
