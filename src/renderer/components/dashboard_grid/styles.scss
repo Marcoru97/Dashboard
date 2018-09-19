@@ -15,14 +15,15 @@
     height: 250px;
     margin: 10px;
     background: $foreground;
+    position: relative;
 }
 
 .dashboard-grid-item__wrapper {
     position: relative;
     width: 250px;
     height: 250px;
-    background: $foreground;
     margin: 5px;
+    overflow: hidden;
     transition: width 50ms $easeInOutCubic, height 50ms $easeInOutCubic;
 }
 

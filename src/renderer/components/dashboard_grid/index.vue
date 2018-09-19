@@ -10,7 +10,7 @@
       <transition name="dashboard-grid-item--animation">
         <item-edit v-show="itemEditMode" :item-id="key"/>
       </transition>
-      <async-example>({{item.position}}) {{item.name}}</async-example>
+      <item :extension="item.module" :extension-size="item.size" />
     </div>
     <div v-show="itemEditMode" class="dashboard-grid__new-item">
       <icon-button
@@ -24,23 +24,14 @@
 </template>
 
 <script>
-import Vue from 'vue';
 import { mapState, mapMutations } from 'vuex';
+import { throttle } from './../../helpers';
 
 import IconButton from './../dashboard_button';
 import ItemEdit from './dashboard_item_edit';
+import Item from './dashboard_item';
 
 import types from '../../store/types';
-
-import { throttle } from './../../helpers';
-
-Vue.component('async-example', function(resolve, reject) {
-  setTimeout(function() {
-    resolve({
-      template: '<div><slot></slot></div>',
-    });
-  }, 1000);
-});
 
 export default {
   name: 'grid',
@@ -62,6 +53,7 @@ export default {
   components: {
     IconButton,
     ItemEdit,
+    Item,
   },
 
   mounted() {
