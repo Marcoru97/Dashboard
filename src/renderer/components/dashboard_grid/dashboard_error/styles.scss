@@ -1,0 +1,44 @@
+@import "./../../../variables/colors";
+@import "./../../../variables/animation";
+
+.dashboard-error__box {
+  width: 100%;
+  position: absolute;
+  text-align: center;
+}
+
+.dashboard-error_message-simple {
+  flex-grow: 1;
+  user-select: none;
+  padding: 10px 0 10px 0;
+}
+
+.dashboard-error_wrapper {
+  display: flex;
+  align-items: center;
+  background: #c0392b;
+  cursor: pointer;
+}
+
+.dashboard-error__button {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.dashboard-error__animation-wrapper {
+  overflow: hidden;
+  margin-top: 2px;
+}
+
+.dashboard-error__tooltip {
+  background: #c0392b;
+  padding: 20px 0 20px 0;
+}
+
+.dashboard-error__tooltip-animation {
+  &-enter-active { transition: transform $animationTimeFast $easeOutCubic; }
+  &-leave-active { transition: transform $animationTimeFast $easeInCubic; }
+  &-enter, &-leave-to { transform: translateY(-100%) scaleY(0); }
+
+}

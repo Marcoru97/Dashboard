@@ -41,6 +41,18 @@
         <title>Plus</title>
         <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
       </symbol>
+      <symbol id="plus" viewBox="0 0 24 24">
+        <title>Plus</title>
+        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+      </symbol>
+      <symbol id="arrow_drop_up" viewBox="0 0 24 24">
+        <title>Arrow Drop Up</title>
+        <path d="M7 14l5-5 5 5z"/>
+      </symbol>
+      <symbol id="arrow_drop_down" viewBox="0 0 24 24">
+        <title>Arrow Drop Down</title>
+        <path d="M7 10l5 5 5-5z"/>
+      </symbol>
     </svg>
     <section class="app__frame">
       <window-frame @toggleSettings="showSettings=!showSettings"></window-frame>
