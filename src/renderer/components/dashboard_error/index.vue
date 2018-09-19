@@ -20,7 +20,7 @@
   </div>
 </template>
 <script>
-import IconButton from './../../dashboard_button';
+import IconButton from './../dashboard_button';
 
 export default {
   name: 'error-box',
