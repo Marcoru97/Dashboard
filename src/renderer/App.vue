@@ -53,6 +53,10 @@
         <title>Arrow Drop Down</title>
         <path d="M7 10l5 5 5-5z"/>
       </symbol>
+      <symbol id="content_copy" viewBox="0 0 24 24">
+        <title>Copy</title>
+        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+      </symbol>
     </svg>
     <section class="app__frame">
       <window-frame @toggleSettings="showSettings=!showSettings"></window-frame>

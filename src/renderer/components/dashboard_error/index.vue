@@ -1,20 +1,29 @@
 <template>
-  <div  class="dashboard-error__box">
+  <div class="dashboard-error__box">
     <div class="dashboard-error_wrapper" @click="toggleTooltip()">
-      <div
-        class="dashboard-error_message-simple"
-        v-text="errorMessageSimple"
-      >
-      </div>
+      <div class="dashboard-error_message-simple" v-text="errorMessageSimple"></div>
       <icon-button
         :icon="tooltipButtonIcon"
-        class="dashboard-error__button"
+        class="dashboard-error__collapse-button"
         icon-color="white"
       />
     </div>
     <div class="dashboard-error__animation-wrapper">
       <transition name="dashboard-error__tooltip-animation">
-        <div class="dashboard-error__tooltip" v-text="stringErrorMessage" v-show="!errorMessageTooltipCollapsed"></div>
+        <div class="dashboard-error__tooltip" v-show="!errorMessageTooltipCollapsed">
+          <div class="dashboard-error__tooltip-text">{{stringErrorMessage}}</div>
+          <div class="dashboard-error__tooltip-menu">
+            <transition name="dashboard-error__copy-animation">
+              <div class="dashboard-error__copy-message-box" v-show="showCopyMessage">Copied!</div>
+            </transition>
+            <icon-button
+              @click="copyToClipboard"
+              icon="content_copy"
+              class="dashboard-error__copy-button"
+              icon-color="white"
+            />
+          </div>
+        </div>
       </transition>
     </div>
   </div>
@@ -42,6 +51,7 @@ export default {
   data() {
     return {
       errorMessageTooltipCollapsed: true,
+      showCopyMessage: false,
     };
   },
 
@@ -66,6 +76,25 @@ export default {
   methods: {
     toggleTooltip() {
       this.errorMessageTooltipCollapsed = !this.errorMessageTooltipCollapsed;
+    },
+
+    copyToClipboard() {
+      const textarea = document.createElement('textarea');
+      textarea.value = this.errorMessage;
+      textarea.setAttribute('readonly', '');
+      // Hide the element
+      textarea.style.position = 'absolute';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+
+      this.showCopyMessage = true;
+
+      window.setTimeout(() => {
+        this.showCopyMessage = false;
+      }, 500);
     },
   },
 };
