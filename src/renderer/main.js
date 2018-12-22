@@ -6,6 +6,8 @@ import { ipcRenderer } from 'electron';
 
 import App from './App';
 
+import FileReader from './src/files';
+
 Vue.use(VueShortcut);
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'));
@@ -13,16 +15,14 @@ Vue.config.productionTip = false;
 
 ipcRenderer.on('configDir', (event, message) => {
   store.commit(types.mutations.CONFIG_DIR_SET, message);
-});
 
-ipcRenderer.on('mainConfiguration', (event, message) => {
-  store.commit(types.mutations.SETTINGS_ICON_VISIBLE_CHANGE, message.showSettingsIcon);
-});
+  const fr = new FileReader(message);
 
-ipcRenderer.on('itemDataConfiguration', (event, message) => {
-  for (let i = 0; i < message.length; i++) {
-    store.commit(types.mutations.ITEM_DATA_ADD, message[i]);
-  }
+  store.commit(types.mutations.SET_SETTINGS, fr.readConfigFile());
+
+  fr.getTabFileNames().forEach(element => {
+    store.commit(types.mutations.ADD_TAB, fr.readTabFile(element));
+  });
 });
 
 const vueInstance = new Vue({

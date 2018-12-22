@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-grid__grid" ref="dashboardGrid">
     <div
-      v-for="(item, key) in itemData"
+      v-for="(item, key) in getModulesOfCurrentTab"
       class="dashboard-grid-item__wrapper"
       :key="item.position"
       :data-key="key"
@@ -10,7 +10,7 @@
       <transition name="dashboard-grid-item--animation">
         <item-edit v-show="itemEditMode" :item-id="key"/>
       </transition>
-      <item :extension="item.module" :extension-size="item.size" />
+      <item :extension="item.module" :extension-size="item.size"/>
     </div>
     <div v-show="itemEditMode" class="dashboard-grid__new-item">
       <icon-button
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapMutations, mapGetters } from 'vuex';
 import { throttle } from './../../helpers';
 
 import IconButton from './../dashboard_button';
@@ -75,7 +75,7 @@ export default {
 
   methods: {
     ...mapMutations({
-      addItemData: types.mutations.ITEM_DATA_ADD,
+      addItemData: types.mutations.ADD_ITEM_TO_CURRENT_TAB,
     }),
 
     updateStyle() {
@@ -85,7 +85,7 @@ export default {
 
       if (!items) return;
       items.forEach(item => {
-        const itemSize = this.itemData[item.dataset.key].size;
+        const itemSize = this.getModule(item.dataset.key).size;
         const newWidth = Math.min(this.getMaxWidthUnits, itemSize.width);
         const resultWidth = newWidth * boxSize + (newWidth - 1) * margin;
         const resultHeight = itemSize.height * boxSize + (itemSize.height - 1) * margin;
@@ -111,7 +111,8 @@ export default {
   },
 
   computed: {
-    ...mapState(['itemData', 'itemEditMode']),
+    ...mapState(['tabs', 'itemEditMode']),
+    ...mapGetters(['getCurrentTab', 'getModule', 'getModulesOfCurrentTab']),
 
     getMaxWidthUnits() {
       return Math.floor(this.windowWidth / (250 + 10));
@@ -119,7 +120,7 @@ export default {
   },
 
   watch: {
-    itemData: {
+    tabs: {
       handler(oldVal, newVal) {
         this.updateStyle();
       },

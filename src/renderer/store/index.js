@@ -2,25 +2,23 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import mutations from './mutations';
-import getter from './mutations';
-import actions from './mutations';
+import getters from './getter';
+import actions from './actions';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    itemData: [],
-    itemId: 0,
-    itemSize: 250,
-    itemMargin: 5,
+    tabs: [],
+    activeTabId: 0,
 
-    settingsIconVisible: true,
-    itemEditMode: false,
-
+    settings: {},
     appDir: '',
+
+    itemEditMode: false,
   },
 
   mutations,
-  getter,
+  getters,
   actions,
 });

@@ -1,10 +1,5 @@
-import { app, BrowserWindow, Menu } from 'electron';
-
-import {
-  MainConfiguration,
-  ItemDataConfiguration,
-  CONFIG_DIR,
-} from './configuration/configuration.js';
+import { app, BrowserWindow } from 'electron';
+import path from 'path';
 
 if (process.env.NODE_ENV !== 'development') {
   global.__static = require('path')
@@ -23,6 +18,7 @@ function createWindow() {
     width: 1000,
     height: 563,
     frame: false,
+    backgroundColor: '#212121',
   });
 
   mainWindow.loadURL(winURL);
@@ -30,9 +26,9 @@ function createWindow() {
   mainWindow.setMenu(null);
 
   mainWindow.webContents.on('did-finish-load', () => {
-    mainWindow.webContents.send('configDir', CONFIG_DIR);
-    mainWindow.webContents.send('mainConfiguration', MainConfiguration.getConfiguration());
-    mainWindow.webContents.send('itemDataConfiguration', ItemDataConfiguration.getConfiguration());
+    const configDir = path.normalize(path.join(app.getPath('appData'), 'dashy'));
+
+    mainWindow.webContents.send('configDir', configDir);
   });
 
   mainWindow.on('closed', () => {

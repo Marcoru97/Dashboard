@@ -42,9 +42,10 @@ export default {
       extensionHasError: false,
       extensionLoaded: false,
       extensionData: {
-        name: 'No name',
-        description: 'No description',
+        name: 'New Extension',
+        description: 'No description :(',
         version: '-',
+        author: '',
       },
       extensionJavascript: {},
       extensionTemplate: '',
@@ -84,10 +85,12 @@ export default {
             const javascriptPath = path.join(this.extensionPath, this.extensionData.js);
             const javascriptFileData = this.loadFile(javascriptPath);
 
-            this.extensionJavascript = new Function('element', 'itemSize', javascriptFileData)(
-              this.$el,
-              this.extensionSize,
-            );
+            this.extensionJavascript = new Function(
+              'element',
+              'itemSize',
+              `"use strict"; ${javascriptFileData}`,
+            )(this.$el, this.extensionSize);
+
             if (this.extensionJavascript.hasOwnProperty('initialize')) {
               this.extensionJavascript.initialize();
             }
