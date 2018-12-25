@@ -23,10 +23,11 @@ ipcRenderer.on('configDir', (event, message) => {
   fr.getTabFileNames().forEach(element => {
     store.commit(types.mutations.ADD_TAB, fr.readTabFile(element));
   });
-});
 
-const vueInstance = new Vue({
-  el: '#app',
-  render: h => h(App),
-  store,
+  // TODO: Loading animation?
+  const vueInstance = new Vue({
+    el: '#app',
+    render: h => h(App),
+    store,
+  });
 });
