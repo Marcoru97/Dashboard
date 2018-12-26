@@ -2,11 +2,23 @@
   <div class="dashboard-grid-item__edit">
     <div class="dashboard-grid-item-edit__row dashboard-grid-item-edit__row--grow">
       <div class="dashboard-grid-item-edit__content"></div>
-      <div class="dashboard-grid-item-edit__resize-east-bar" ref="itemEditWidth" data-resize-mode="ITEM_WIDTH"></div>
+      <div
+        class="dashboard-grid-item-edit__resize-east-bar"
+        ref="itemEditWidth"
+        data-resize-mode="ITEM_WIDTH"
+      ></div>
     </div>
     <div class="dashboard-grid-item-edit__row">
-      <div class="dashboard-grid-item-edit__resize-north-bar" ref="itemEditHeight" data-resize-mode="ITEM_HEIGHT"></div>
-      <div class="dashboard-grid-item-edit__resize-south-east-bar" ref="itemEditBoth" data-resize-mode="ITEM_BOTH"></div>
+      <div
+        class="dashboard-grid-item-edit__resize-north-bar"
+        ref="itemEditHeight"
+        data-resize-mode="ITEM_HEIGHT"
+      ></div>
+      <div
+        class="dashboard-grid-item-edit__resize-south-east-bar"
+        ref="itemEditBoth"
+        data-resize-mode="ITEM_BOTH"
+      ></div>
     </div>
   </div>
 </template>
@@ -58,8 +70,7 @@ export default {
 
   methods: {
     ...mapMutations({
-      changeItemDataSizeWidth: types.mutations.ITEM_DATA_SIZE_WIDTH_CHANGE,
-      changeItemDataSizeHeight: types.mutations.ITEM_DATA_SIZE_HEIGHT_CHANGE,
+      updateItem: types.mutations.UPDATE_ITEM_FROM_CURRENT_TAB,
     }),
 
     itemMouseDownListener(event) {

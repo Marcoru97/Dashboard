@@ -1,7 +1,7 @@
 import types from './types';
 
 export default {
-  [types.mutations.UPDATE_ITEM_TO_CURRENT_TAB](state, { itemId, newItemData }) {
+  [types.mutations.UPDATE_ITEM_FROM_CURRENT_TAB](state, { itemId, newItemData }) {
     const currentTab = state.tabs[state.activeTabId];
 
     currentTab.modules[itemId] = {

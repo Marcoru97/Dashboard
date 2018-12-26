@@ -3,11 +3,11 @@ export default {
     return state.tabs[state.activeTabId];
   },
 
-  getModule: state => id => {
+  getModuleFromCurrentTab: state => id => {
     return state.tabs[state.activeTabId].modules[id];
   },
 
-  getModulesOfCurrentTab: state => {
+  getModulesFromCurrentTab: state => {
     return state.tabs[state.activeTabId].modules;
   },
 };

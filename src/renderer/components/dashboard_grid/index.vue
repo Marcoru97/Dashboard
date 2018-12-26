@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-grid__grid" ref="dashboardGrid">
     <div
-      v-for="(item, key) in getModulesOfCurrentTab"
+      v-for="(item, key) in getModulesFromCurrentTab"
       class="dashboard-grid-item__wrapper"
       :key="item.position"
       :data-key="key"
@@ -112,7 +112,7 @@ export default {
 
   computed: {
     ...mapState(['tabs', 'itemEditMode']),
-    ...mapGetters(['getCurrentTab', 'getModule', 'getModulesOfCurrentTab']),
+    ...mapGetters(['getCurrentTab', 'getModule', 'getModulesFromCurrentTab']),
 
     getMaxWidthUnits() {
       return Math.floor(this.windowWidth / (250 + 10));
