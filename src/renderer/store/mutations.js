@@ -4,6 +4,8 @@ export default {
   [types.mutations.UPDATE_ITEM_FROM_CURRENT_TAB](state, { itemId, newItemData }) {
     const currentTab = state.tabs[state.activeTabId];
 
+    console.log(JSON.stringify(currentTab.modules[itemId]), JSON.stringify(newItemData), itemId);
+
     currentTab.modules[itemId] = {
       ...currentTab.modules[itemId],
       ...newItemData,

@@ -23,10 +23,9 @@
   </div>
 </template>
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapMutations, mapGetters } from 'vuex';
 
 import IconButton from './../../dashboard_button';
-
 import types from '../../../store/types';
 
 export default {
@@ -97,6 +96,7 @@ export default {
         if (this.mouseDownMode === 'ITEM_WIDTH' || this.mouseDownMode === 'ITEM_BOTH') {
           const currentWidth = this.item.size.width * this.itemSize;
           const relativeMouseX = event.clientX - this.itemPosition.x - currentWidth;
+
           if (
             Math.abs(relativeMouseX) >= this.itemSize &&
             !(this.item.size.width === 1 && relativeMouseX < 0)
@@ -133,22 +133,31 @@ export default {
 
     changeItemWidth(ammount) {
       const currentWidth = this.item.size.width;
-      this.changeItemDataSizeWidth({ id: this.itemId, width: currentWidth + ammount });
+      const currentHeight = this.item.size.height;
+      this.updateItem({
+        itemId: this.itemId,
+        newItemData: { size: { width: currentWidth + ammount, height: currentHeight } },
+      });
       this.recalculateItemPosition();
     },
 
     changeItemHeight(ammount) {
+      const currentWidth = this.item.size.width;
       const currentHeight = this.item.size.height;
-      this.changeItemDataSizeHeight({ id: this.itemId, height: currentHeight + ammount });
+      this.updateItem({
+        itemId: this.itemId,
+        newItemData: { size: { width: currentWidth, height: currentHeight + ammount } },
+      });
       this.recalculateItemPosition();
     },
   },
 
   computed: {
-    ...mapState(['itemData', 'itemSize', 'itemMargin']),
+    ...mapState(['itemData', 'itemSize']),
+    ...mapGetters(['getModuleFromCurrentTab']),
 
     item() {
-      return this.itemData[this.itemId];
+      return this.getModuleFromCurrentTab(this.itemId);
     },
   },
 };

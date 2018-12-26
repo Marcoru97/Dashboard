@@ -9,6 +9,9 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    // Currently a const value
+    itemSize: 250,
+
     tabs: [],
     activeTabId: 0,
 

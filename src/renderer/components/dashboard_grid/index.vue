@@ -63,7 +63,7 @@ export default {
   },
 
   updated() {
-    // TODO: Handle it better
+    // TODO: Handle it better. refs.dashboardGridItems is undefined
     if (this.isDirty) {
       this.updateStyle();
     }
@@ -85,7 +85,7 @@ export default {
 
       if (!items) return;
       items.forEach(item => {
-        const itemSize = this.getModule(item.dataset.key).size;
+        const itemSize = this.getModuleFromCurrentTab(item.dataset.key).size;
         const newWidth = Math.min(this.getMaxWidthUnits, itemSize.width);
         const resultWidth = newWidth * boxSize + (newWidth - 1) * margin;
         const resultHeight = itemSize.height * boxSize + (itemSize.height - 1) * margin;
@@ -112,7 +112,7 @@ export default {
 
   computed: {
     ...mapState(['tabs', 'itemEditMode']),
-    ...mapGetters(['getCurrentTab', 'getModule', 'getModulesFromCurrentTab']),
+    ...mapGetters(['getCurrentTab', 'getModuleFromCurrentTab', 'getModulesFromCurrentTab']),
 
     getMaxWidthUnits() {
       return Math.floor(this.windowWidth / (250 + 10));
