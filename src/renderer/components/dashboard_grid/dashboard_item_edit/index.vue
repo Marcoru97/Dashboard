@@ -69,7 +69,7 @@ export default {
 
   methods: {
     ...mapMutations({
-      updateItem: types.mutations.UPDATE_ITEM_FROM_CURRENT_TAB,
+      updateItemSize: types.mutations.UPDATE_ITEM_SIZE_FROM_CURRENT_TAB,
     }),
 
     itemMouseDownListener(event) {
@@ -132,21 +132,20 @@ export default {
     },
 
     changeItemWidth(ammount) {
-      const currentWidth = this.item.size.width;
-      const currentHeight = this.item.size.height;
-      this.updateItem({
-        itemId: this.itemId,
-        newItemData: { size: { width: currentWidth + ammount, height: currentHeight } },
-      });
-      this.recalculateItemPosition();
+      this.changeItemSize(ammount, 0);
     },
 
     changeItemHeight(ammount) {
+      this.changeItemSize(0, ammount);
+    },
+
+    changeItemSize(width, height) {
       const currentWidth = this.item.size.width;
       const currentHeight = this.item.size.height;
-      this.updateItem({
+      this.updateItemSize({
         itemId: this.itemId,
-        newItemData: { size: { width: currentWidth, height: currentHeight + ammount } },
+        width: currentWidth + width,
+        height: currentHeight + height,
       });
       this.recalculateItemPosition();
     },

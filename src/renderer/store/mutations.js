@@ -1,15 +1,21 @@
 import types from './types';
 
 export default {
+  // WARNING: Changes are not always reactive!
   [types.mutations.UPDATE_ITEM_FROM_CURRENT_TAB](state, { itemId, newItemData }) {
     const currentTab = state.tabs[state.activeTabId];
-
-    console.log(JSON.stringify(currentTab.modules[itemId]), JSON.stringify(newItemData), itemId);
 
     currentTab.modules[itemId] = {
       ...currentTab.modules[itemId],
       ...newItemData,
     };
+  },
+
+  [types.mutations.UPDATE_ITEM_SIZE_FROM_CURRENT_TAB](state, { itemId, width, height }) {
+    const currentTab = state.tabs[state.activeTabId];
+
+    currentTab.modules[itemId].size.width = width;
+    currentTab.modules[itemId].size.height = height;
   },
 
   [types.mutations.ADD_ITEM_TO_CURRENT_TAB](state, item) {
