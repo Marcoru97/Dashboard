@@ -1,6 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-import { app } from 'electron';
 
 // TODO: Better names / Better Filename!
 export default class FileReader {

@@ -36,10 +36,10 @@
   </div>
 </template>
 <script>
-import IconButton from './../dashboard_button';
-
-import { remote } from 'electron';
+import { remote } from 'electron'; // eslint-disable-line
 import { mapState } from 'vuex';
+
+import IconButton from './../dashboard_button';
 
 export default {
   name: 'window-frame',

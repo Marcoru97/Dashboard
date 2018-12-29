@@ -59,17 +59,15 @@ export default {
     tooltipButtonIcon() {
       if (this.errorMessageTooltipCollapsed) {
         return 'arrow_drop_down';
-      } else {
-        return 'arrow_drop_up';
       }
+      return 'arrow_drop_up';
     },
 
     stringErrorMessage() {
       if (this.errorMessage instanceof Error) {
         return `${this.errorMessage.toString()}`;
-      } else {
-        return this.errorMessage;
       }
+      return this.errorMessage;
     },
   },
 

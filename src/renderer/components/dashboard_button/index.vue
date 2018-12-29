@@ -32,7 +32,7 @@ export default {
   },
 
   methods: {
-    click: function(e) {
+    click(e) {
       // Pass the event one layer up
       this.$emit('click', e);
     },

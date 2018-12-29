@@ -2,7 +2,7 @@ function throttle(callback) {
   let resizeTimeout;
   return () => {
     if (!resizeTimeout) {
-      let timeout = () => {
+      const timeout = () => {
         resizeTimeout = null;
         callback();
       };
@@ -11,4 +11,5 @@ function throttle(callback) {
   };
 }
 
+// eslint-disable-next-line import/prefer-default-export
 export { throttle };

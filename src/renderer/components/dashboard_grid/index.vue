@@ -92,7 +92,7 @@ export default {
       const modules = [...this.getModulesFromCurrentTab];
       const margin = this.settings.itemMargin;
 
-      modules.forEach(itemModul => {
+      modules.forEach((itemModul) => {
         const newWidth = Math.min(this.maxWidthUnits, itemModul.size.width);
         const resultWidth = newWidth * this.itemSize + (newWidth - 1) * margin;
         const resultHeight =

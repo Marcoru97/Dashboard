@@ -10,11 +10,8 @@
 </template>
 
 <script>
-import { app } from 'electron';
 import path from 'path';
 import fs from 'fs';
-import { error } from 'util';
-import { throws } from 'assert';
 
 import ErrorMessage from './../../dashboard_error';
 
@@ -56,11 +53,11 @@ export default {
   mounted() {
     this.loadExtensionFiles()
       .then(() => {
-        if (this.extensionJavascript.hasOwnProperty('loaded')) {
+        if (Object.prototype.hasOwnProperty.call(this.extensionJavascript, 'loaded')) {
           this.extensionJavascript.loaded();
         }
       })
-      .catch(error => {
+      .catch((error) => {
         this.showConsoleError(error);
         this.extensionErrorMessage = error;
         this.extensionHasError = true;
@@ -71,7 +68,7 @@ export default {
     loadExtensionFiles() {
       return new Promise(async (resolve, reject) => {
         try {
-          //Loads the json config file
+          // Loads the json config file
           const configPath = path.join(this.extensionPath, 'extension.json');
           const jsonFileData = this.loadFile(configPath);
 
@@ -85,13 +82,14 @@ export default {
             const javascriptPath = path.join(this.extensionPath, this.extensionData.js);
             const javascriptFileData = this.loadFile(javascriptPath);
 
+            // eslint-disable-next-line no-new-func
             this.extensionJavascript = new Function(
               'element',
               'itemSize',
               `"use strict"; ${javascriptFileData}`,
             )(this.$el, this.extensionSize);
 
-            if (this.extensionJavascript.hasOwnProperty('initialize')) {
+            if (Object.prototype.hasOwnProperty.call(this.extensionJavascript, 'initialize')) {
               this.extensionJavascript.initialize();
             }
           }
@@ -112,15 +110,15 @@ export default {
     loadFile(filePath) {
       if (fs.existsSync(filePath)) {
         return fs.readFileSync(filePath, 'utf8');
-      } else {
-        throw `File not found! (${filePath})`;
       }
+      throw new Error(`File not found! (${filePath})`);
     },
 
     showConsoleError(error) {
       // TODO: Maybe outsource it and make it more generic?
+      // eslint-disable-next-line no-console
       console.log(
-        `An error occurred while loading the extension \n`,
+        'An error occurred while loading the extension \n',
         `Extension: '${this.extension}' \n`,
         `Error: ${error} \n`,
       );

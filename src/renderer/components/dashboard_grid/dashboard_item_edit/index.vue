@@ -86,6 +86,7 @@ export default {
         case 'ITEM_BOTH':
           document.body.style.cursor = 'se-resize';
           break;
+        default:
       }
 
       document.body.style['user-select'] = 'none';

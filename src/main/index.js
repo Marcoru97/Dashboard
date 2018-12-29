@@ -1,7 +1,8 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow } from 'electron'; // eslint-disable-line import/no-extraneous-dependencies
 import path from 'path';
 
 if (process.env.NODE_ENV !== 'development') {
+  // eslint-disable-next-line no-underscore-dangle
   global.__static = require('path')
     .join(__dirname, '/static')
     .replace(/\\/g, '\\\\');
@@ -10,7 +11,7 @@ if (process.env.NODE_ENV !== 'development') {
 let mainWindow;
 const winURL =
   process.env.NODE_ENV === 'development'
-    ? `http://localhost:9080`
+    ? 'http://localhost:9080'
     : `file://${__dirname}/index.html`;
 
 function createWindow() {
