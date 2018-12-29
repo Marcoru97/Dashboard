@@ -1,9 +1,9 @@
 {
   "name": "dashboard",
   "version": "0.0.1",
-  "author": "Marco_ru <marco.russi97@gmail.com>",
+  "author": "Marco_ru",
   "description": "A dashboard with many features",
-  "license": null,
+  "license": "MIT",
   "main": "./dist/electron/main.js",
   "scripts": {
     "build": "node .electron-vue/build.js && electron-builder",
