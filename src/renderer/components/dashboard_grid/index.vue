@@ -1,10 +1,10 @@
 <template>
   <div class="dashboard-grid__grid" ref="dashboardGrid">
     <div
-      v-for="(item, key) in getModulesFromCurrentTab"
+      v-for="(item, key) in modules"
       class="dashboard-grid-item__wrapper"
       :key="item.position"
-      :data-key="key"
+      :style="item.style"
       ref="dashboardGridItems"
     >
       <transition name="dashboard-grid-item--animation">
@@ -39,7 +39,6 @@ export default {
   data() {
     return {
       windowWidth: 0,
-      isDirty: false,
     };
   },
 
@@ -58,15 +57,7 @@ export default {
 
   mounted() {
     this.windowWidth = this.$refs.dashboardGrid.clientWidth;
-    this.isDirty = true;
     window.addEventListener('resize', this.resizeEventListener);
-  },
-
-  updated() {
-    // TODO: Handle it better. refs.dashboardGridItems is undefined
-    if (this.isDirty) {
-      this.updateStyle();
-    }
   },
 
   destroyed() {
@@ -78,27 +69,9 @@ export default {
       addItemData: types.mutations.ADD_ITEM_TO_CURRENT_TAB,
     }),
 
-    updateStyle() {
-      const items = this.$refs.dashboardGridItems;
-      const margin = 10;
-      const boxSize = 250;
-
-      if (!items) return;
-      items.forEach(item => {
-        const itemSize = this.getModuleFromCurrentTab(item.dataset.key).size;
-        const newWidth = Math.min(this.getMaxWidthUnits, itemSize.width);
-        const resultWidth = newWidth * boxSize + (newWidth - 1) * margin;
-        const resultHeight = itemSize.height * boxSize + (itemSize.height - 1) * margin;
-
-        item.style.width = `${resultWidth}px`;
-        item.style.height = `${resultHeight}px`;
-      });
-    },
-
     resizeEventListener() {
       throttle(() => {
         this.windowWidth = this.$refs.dashboardGrid.clientWidth;
-        this.updateStyle();
       })();
     },
 
@@ -111,20 +84,31 @@ export default {
   },
 
   computed: {
-    ...mapState(['tabs', 'itemEditMode']),
+    ...mapState(['itemSize', 'settings', 'tabs', 'itemEditMode']),
     ...mapGetters(['getCurrentTab', 'getModuleFromCurrentTab', 'getModulesFromCurrentTab']),
 
-    getMaxWidthUnits() {
-      return Math.floor(this.windowWidth / (250 + 10));
-    },
-  },
+    modules() {
+      // Copy the module array so we don't mess up the store.
+      const modules = [...this.getModulesFromCurrentTab];
+      const margin = this.settings.itemMargin;
 
-  watch: {
-    tabs: {
-      handler(oldVal, newVal) {
-        this.updateStyle();
-      },
-      deep: true,
+      modules.forEach(itemModul => {
+        const newWidth = Math.min(this.maxWidthUnits, itemModul.size.width);
+        const resultWidth = newWidth * this.itemSize + (newWidth - 1) * margin;
+        const resultHeight =
+          itemModul.size.height * this.itemSize + (itemModul.size.height - 1) * margin;
+
+        itemModul.style = {
+          width: `${resultWidth}px`,
+          height: `${resultHeight}px`,
+        };
+      });
+
+      return modules;
+    },
+
+    maxWidthUnits() {
+      return Math.floor(this.windowWidth / (250 + 10));
     },
   },
 };
