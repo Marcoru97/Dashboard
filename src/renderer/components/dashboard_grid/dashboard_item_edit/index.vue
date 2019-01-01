@@ -1,23 +1,29 @@
 <template>
   <div class="dashboard-grid-item__edit">
     <div class="dashboard-grid-item-edit__row dashboard-grid-item-edit__row--grow">
-      <div class="dashboard-grid-item-edit__content"></div>
+      <div class="dashboard-grid-item-edit__content" ref="itemEditMove" data-action="MOVE">
+        <icon-button
+          icon="settings"
+          icon-color="light-gray"
+          class="dashboard-grid-item-edit__settings-button"
+        ></icon-button>
+      </div>
       <div
         class="dashboard-grid-item-edit__resize-east-bar"
         ref="itemEditWidth"
-        data-resize-mode="ITEM_WIDTH"
+        data-action="WIDTH"
       ></div>
     </div>
     <div class="dashboard-grid-item-edit__row">
       <div
         class="dashboard-grid-item-edit__resize-north-bar"
         ref="itemEditHeight"
-        data-resize-mode="ITEM_HEIGHT"
+        data-action="HEIGHT"
       ></div>
       <div
         class="dashboard-grid-item-edit__resize-south-east-bar"
         ref="itemEditBoth"
-        data-resize-mode="ITEM_BOTH"
+        data-action="WIDTH_HEIGHT"
       ></div>
     </div>
   </div>
@@ -35,6 +41,9 @@ export default {
     return {
       mouseDownMode: null,
       itemPosition: { x: 0, y: 0 },
+
+      cursorOffsetPosition: { x: 0, y: 0 },
+      clonedItem: null,
     };
   },
 
@@ -53,6 +62,7 @@ export default {
     this.$refs.itemEditWidth.addEventListener('mousedown', this.itemMouseDownListener);
     this.$refs.itemEditHeight.addEventListener('mousedown', this.itemMouseDownListener);
     this.$refs.itemEditBoth.addEventListener('mousedown', this.itemMouseDownListener);
+    this.$refs.itemEditMove.addEventListener('mousedown', this.itemMouseDownListener);
 
     document.addEventListener('mouseup', this.itemMouseUpListener);
     document.addEventListener('mousemove', this.itemMouseMoveListener);
@@ -62,6 +72,7 @@ export default {
     this.$refs.itemEditWidth.removeEventListener('mousedown', this.itemMouseDownListener);
     this.$refs.itemEditHeight.removeEventListener('mousedown', this.itemMouseDownListener);
     this.$refs.itemEditBoth.removeEventListener('mousedown', this.itemMouseDownListener);
+    this.$refs.itemEditMove.removeEventListener('mousedown', this.itemMouseDownListener);
 
     document.removeEventListener('mouseup', this.itemMouseUpListener);
     document.removeEventListener('mousemove', this.itemMouseMoveListener);
@@ -73,19 +84,37 @@ export default {
     }),
 
     itemMouseDownListener(event) {
-      this.mouseDownMode = event.target.dataset.resizeMode;
+      this.mouseDownMode = event.target.dataset.action;
       this.recalculateItemPosition();
 
+      this.cursorOffsetPosition = {
+        x: event.clientX - this.itemPosition.x,
+        y: event.clientY - this.itemPosition.y,
+      };
+
       switch (this.mouseDownMode) {
-        case 'ITEM_WIDTH':
+        case 'WIDTH':
           document.body.style.cursor = 'e-resize';
           break;
-        case 'ITEM_HEIGHT':
+        case 'HEIGHT':
           document.body.style.cursor = 'n-resize';
           break;
-        case 'ITEM_BOTH':
+        case 'WIDTH_HEIGHT':
           document.body.style.cursor = 'se-resize';
           break;
+        case 'MOVE': {
+          document.body.style.cursor = 'all-scroll';
+          const itemElement = this.$el.parentElement;
+          this.clonedItem = itemElement.cloneNode(true);
+          this.clonedItem.classList.add('dashboard-grid-item--drag');
+          this.$root.$el.appendChild(this.clonedItem);
+
+          const xPos = event.clientX - this.cursorOffsetPosition.x;
+          const yPos = event.clientY - this.cursorOffsetPosition.y;
+
+          this.clonedItem.style.transform = `translate(${xPos}px, ${yPos}px)`;
+          break;
+        }
         default:
       }
 
@@ -94,7 +123,7 @@ export default {
 
     itemMouseMoveListener(event) {
       if (this.mouseDownMode !== null) {
-        if (this.mouseDownMode === 'ITEM_WIDTH' || this.mouseDownMode === 'ITEM_BOTH') {
+        if (this.mouseDownMode === 'WIDTH' || this.mouseDownMode === 'WIDTH_HEIGHT') {
           const currentWidth = this.item.size.width * this.itemSize;
           const relativeMouseX = event.clientX - this.itemPosition.x - currentWidth;
 
@@ -106,7 +135,7 @@ export default {
           }
         }
 
-        if (this.mouseDownMode === 'ITEM_HEIGHT' || this.mouseDownMode === 'ITEM_BOTH') {
+        if (this.mouseDownMode === 'HEIGHT' || this.mouseDownMode === 'WIDTH_HEIGHT') {
           const currentHeight = this.item.size.height * this.itemSize;
           const relativeMouseY = event.clientY - this.itemPosition.y - currentHeight;
           if (
@@ -116,6 +145,13 @@ export default {
             this.changeItemHeight(Math.ceil(relativeMouseY / this.itemSize));
           }
         }
+
+        if (this.mouseDownMode === 'MOVE') {
+          const xPos = event.clientX - this.cursorOffsetPosition.x;
+          const yPos = event.clientY - this.cursorOffsetPosition.y;
+
+          this.clonedItem.style.transform = `translate(${xPos}px, ${yPos}px)`;
+        }
       }
     },
 
@@ -123,6 +159,10 @@ export default {
       this.mouseDownMode = null;
       document.body.style.cursor = null;
       document.body.style['user-select'] = null;
+
+      if (this.clonedItem !== null) {
+        this.$root.$el.removeChild(this.clonedItem);
+      }
     },
 
     recalculateItemPosition() {
@@ -162,4 +202,10 @@ export default {
   },
 };
 </script>
-<style lang="scss" src="./styles.scss" scoped />
+<style lang="scss" src="./styles.scss" scoped>
+</style>
+<style lang="scss">
+.dashboard-grid-item--drag {
+  position: absolute !important;
+}
+</style>

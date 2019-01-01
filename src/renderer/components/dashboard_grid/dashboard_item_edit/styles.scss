@@ -23,6 +23,13 @@ $resizeBarSize: 10px;
   flex-grow: 1;
   border-right: 1px dashed #202020;
   border-bottom: 1px dashed #202020;
+  cursor: all-scroll;
+}
+
+.dashboard-grid-item-edit__settings-button {
+  width: 15px;
+  height: 15px;
+  margin: 8px;
 }
 
 .dashboard-grid-item-edit__resize-east-bar {
