@@ -3,6 +3,7 @@ module.exports = {
   parser: 'babel-eslint',
   parserOptions: {
     sourceType: 'module',
+    'arrow-parens': 'as-needed',
   },
   env: {
     browser: true,
