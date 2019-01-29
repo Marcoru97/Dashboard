@@ -1,0 +1,42 @@
+@import "./../../variables/colors";
+
+.window-frame__frame {
+    width: 100%;
+    height: 30px;
+    background: $background-window-frame;
+    -webkit-user-select: none;
+    -webkit-app-region: drag;
+}
+
+.window-frame__control {
+    display: flex;
+    float: right;
+    margin: 0 3px 0 0;
+    -webkit-app-region: no-drag;
+}
+
+.window-frame__max-icon,
+.window-frame__min-icon,
+.window-frame__close-icon,
+.window-frame__settings-icon {
+    width: 40px;
+    height: 30px;
+}
+
+.window-frame__settings-icon {
+    margin-right: 20px;
+}
+
+.window-frame__close-icon {
+    &:hover {
+        background: $background-window-frame-hover-red !important;
+        fill: #FFFFFF !important;
+    }
+}
+
+.window-frame__max-icon,
+.window-frame__min-icon {
+    &:hover {
+        background: $background-window-frame-hover !important;
+    }
+}
