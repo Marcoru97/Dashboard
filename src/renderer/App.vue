@@ -1,75 +1,7 @@
 <template>
   <div id="app">
-    <svg style="display: none;" xmlns="http://www.w3.org/2000/svg">
-      <symbol id="settings" viewBox="0 0 268.76 268.77">
-        <title>Settings</title>
-        <path
-          d="m267.92 119.46c-0.425-3.778-4.83-6.617-8.639-6.617-12.315 0-23.243-7.231-27.826-18.414-4.682-11.454-1.663-24.812 7.515-33.231 2.889-2.641 3.24-7.062 0.817-10.133-6.303-8.004-13.467-15.234-21.289-21.5-3.063-2.458-7.557-2.116-10.213 0.825-8.01 8.871-22.398 12.168-33.516 7.529-11.57-4.867-18.866-16.591-18.152-29.176 0.235-3.953-2.654-7.39-6.595-7.849-10.038-1.161-20.164-1.197-30.232-0.08-3.896 0.43-6.785 3.786-6.654 7.689 0.438 12.461-6.946 23.98-18.401 28.672-10.985 4.487-25.272 1.218-33.266-7.574-2.642-2.896-7.063-3.252-10.141-0.853-8.054 6.319-15.379 13.555-21.74 21.493-2.481 3.086-2.116 7.559 0.802 10.214 9.353 8.47 12.373 21.944 7.514 33.53-4.639 11.046-16.109 18.165-29.24 18.165-4.261-0.137-7.296 2.723-7.762 6.597-1.182 10.096-1.196 20.383-0.058 30.561 0.422 3.794 4.961 6.608 8.812 6.608 11.702-0.299 22.937 6.946 27.65 18.415 4.698 11.454 1.678 24.804-7.514 33.23-2.875 2.641-3.24 7.055-0.817 10.126 6.244 7.953 13.409 15.19 21.259 21.508 3.079 2.481 7.559 2.131 10.228-0.81 8.04-8.893 22.427-12.184 33.501-7.536 11.599 4.852 18.895 16.575 18.181 29.167-0.233 3.955 2.67 7.398 6.595 7.85 5.135 0.599 10.301 0.898 15.481 0.898 4.917 0 9.835-0.27 14.752-0.817 3.897-0.43 6.784-3.786 6.653-7.696-0.451-12.454 6.946-23.973 18.386-28.657 11.059-4.517 25.286-1.211 33.281 7.572 2.657 2.89 7.047 3.239 10.142 0.848 8.039-6.304 15.349-13.534 21.74-21.494 2.48-3.079 2.13-7.559-0.803-10.213-9.353-8.47-12.388-21.946-7.529-33.524 4.568-10.899 15.612-18.217 27.491-18.217l1.662 0.043c3.853 0.313 7.398-2.655 7.865-6.588 1.184-10.105 1.198-20.383 0.06-30.561zm-133.32 60.03c-24.718 0-44.824-20.106-44.824-44.824 0-24.717 20.106-44.824 44.824-44.824 24.717 0 44.823 20.107 44.823 44.824 0 24.718-20.106 44.824-44.823 44.824z"
-        ></path>
-      </symbol>
-      <symbol id="close" viewBox="0 0 18 18">
-        <title>Close</title>
-        <path
-          d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"
-        ></path>
-      </symbol>
-      <symbol id="minus" viewBox="0 0 24 24">
-        <title>Minus</title>
-        <path d="M19 13H5v-2h14v2z"></path>
-      </symbol>
-      <symbol id="box" viewBox="0 0 24 24">
-        <title>Box</title>
-        <path
-          d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
-        ></path>
-      </symbol>
-      <symbol id="arrow_right" viewBox="0 0 24 24">
-        <title>Arrow Right</title>
-        <path d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z"></path>
-      </symbol>
-      <symbol id="arrow_left" viewBox="0 0 24 24">
-        <title>Arrow Left</title>
-        <path d="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z"></path>
-      </symbol>
-      <symbol id="arrow_down" viewBox="0 0 24 24">
-        <title>Arrow Down</title>
-        <path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"></path>
-      </symbol>
-      <symbol id="arrow_up" viewBox="0 0 24 24">
-        <title>Arrow Up</title>
-        <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path>
-      </symbol>
-      <symbol id="move" viewBox="0 0 24 24">
-        <title>Move</title>
-        <path
-          d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"
-        ></path>
-      </symbol>
-      <symbol id="plus" viewBox="0 0 24 24">
-        <title>Plus</title>
-        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path>
-      </symbol>
-      <symbol id="plus" viewBox="0 0 24 24">
-        <title>Plus</title>
-        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path>
-      </symbol>
-      <symbol id="arrow_drop_up" viewBox="0 0 24 24">
-        <title>Arrow Drop Up</title>
-        <path d="M7 14l5-5 5 5z"></path>
-      </symbol>
-      <symbol id="arrow_drop_down" viewBox="0 0 24 24">
-        <title>Arrow Drop Down</title>
-        <path d="M7 10l5 5 5-5z"></path>
-      </symbol>
-      <symbol id="content_copy" viewBox="0 0 24 24">
-        <title>Copy</title>
-        <path
-          d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"
-        ></path>
-      </symbol>
-    </svg>
     <section class="app__frame">
-      <window-frame @toggleSettings="showSettings=!showSettings"></window-frame>
+      <menu-bar @toggleSettings="showSettings=!showSettings"></menu-bar>
     </section>
     <section class="app__body">
       <settings :settingsVisible="showSettings" @closeSettings="showSettings=false"/>
@@ -82,7 +14,7 @@
 import Overview from './components/dashboard_grid';
 import Settings from './components/dashboard_settings';
 import IconButton from './components/dashboard_button';
-import WindowFrame from './components/window_frame';
+import MenuBar from './components/menu_bar';
 
 export default {
   name: 'dashboard',
@@ -91,7 +23,7 @@ export default {
     Settings,
     IconButton,
 
-    WindowFrame,
+    MenuBar,
   },
 
   data() {

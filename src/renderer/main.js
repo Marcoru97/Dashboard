@@ -10,6 +10,21 @@ import App from './App';
 
 import FileReader from './src/files';
 
+// Load svg data
+import './assets/arrow_down.svg';
+import './assets/arrow_drop_up.svg';
+import './assets/arrow_left.svg';
+import './assets/arrow_right.svg';
+import './assets/arrow_drop_down.svg';
+import './assets/arrow_up.svg';
+import './assets/box.svg';
+import './assets/close.svg';
+import './assets/copy.svg';
+import './assets/minus.svg';
+import './assets/move.svg';
+import './assets/plus.svg';
+import './assets/settings.svg';
+
 Vue.use(VueShortcut);
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'));
