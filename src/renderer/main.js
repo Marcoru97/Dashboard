@@ -20,6 +20,7 @@ import './assets/arrow_up.svg';
 import './assets/box.svg';
 import './assets/close.svg';
 import './assets/copy.svg';
+import './assets/menu.svg';
 import './assets/minus.svg';
 import './assets/move.svg';
 import './assets/plus.svg';

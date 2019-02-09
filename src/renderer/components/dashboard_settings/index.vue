@@ -4,7 +4,7 @@
       class="dashboard-settings__wrapper"
       v-show="settingsVisible"
       v-shortkey.push="['esc']"
-      @shortkey="$emit('closeSettings')"
+      @shortkey="changeSettingsVisible(false)"
     >
       <div class="dashboard-settings__background"></div>
       <div class="dashboard-settings__menu">
@@ -13,12 +13,12 @@
           <icon-button
             icon="arrow_right"
             class="dashboard-settings-menu__toggle-button"
-            @click="$emit('closeSettings')"
+            @click="changeSettingsVisible(false)"
           />
         </section>
         <!-- dev test -->
         <button
-          @click="changeItemEditMode(!itemEditMode); $emit('closeSettings')"
+          @click="changeItemEditMode(!itemEditMode); changeSettingsVisible(false)"
           style="margin: 20px;"
         >Item Edit Mode</button>
         <hr class="dashboard-settings-menu-line">
@@ -37,21 +37,14 @@ export default {
 
   components: { IconButton },
 
-  props: {
-    settingsVisible: {
-      required: true,
-      type: Boolean,
-      default: false,
-    },
-  },
-
   computed: {
-    ...mapState(['itemEditMode']),
+    ...mapState(['itemEditMode', 'settingsVisible']),
   },
 
   methods: {
     ...mapMutations({
       changeItemEditMode: types.mutations.ITEM_EDIT_MODE_CHANGE,
+      changeSettingsVisible: types.mutations.CHANGE_SETTINGS_VISIBLE_CHANGE,
     }),
   },
 };

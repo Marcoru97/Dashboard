@@ -15,6 +15,14 @@
     -webkit-app-region: no-drag;
 }
 
+.menu-bar__vertical_line {
+    width: 2px;
+    height: 30px;
+    margin-left: 7px;
+    margin-right: 7px;
+    background: $foreground;
+}
+
 .menu-bar__max-icon,
 .menu-bar__min-icon,
 .menu-bar__close-icon,
@@ -28,10 +36,6 @@
     fill: #FFFFFF !important;
 }
 
-.menu-bar__settings-icon {
-    margin-right: 20px;
-}
-
 .menu-bar__close-icon {
     &:hover {
         background: $background-window-frame-hover-red !important;
@@ -40,7 +44,8 @@
 }
 
 .menu-bar__max-icon,
-.menu-bar__min-icon {
+.menu-bar__min-icon,
+.menu-bar__settings-icon {
     &:hover {
         background: $background-window-frame-hover !important;
     }

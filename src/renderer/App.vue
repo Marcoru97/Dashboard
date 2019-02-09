@@ -1,17 +1,15 @@
 <template>
   <div id="app">
-    <section class="app__frame">
-      <menu-bar @toggleSettings="showSettings=!showSettings"></menu-bar>
-    </section>
-    <section class="app__body">
-      <settings :settingsVisible="showSettings" @closeSettings="showSettings=false"/>
-      <overview :settingsVisible="showSettings"></overview>
-    </section>
+    <menu-bar/>
+    <div class="app__content">
+      <settings/>
+      <view/>
+    </div>
   </div>
 </template>
 
 <script>
-import Overview from './components/dashboard_grid';
+import DashboardView from './components/dashboard_view';
 import Settings from './components/dashboard_settings';
 import IconButton from './components/dashboard_button';
 import MenuBar from './components/menu_bar';
@@ -19,17 +17,11 @@ import MenuBar from './components/menu_bar';
 export default {
   name: 'dashboard',
   components: {
-    Overview,
+    DashboardView,
     Settings,
     IconButton,
 
     MenuBar,
-  },
-
-  data() {
-    return {
-      showSettings: false,
-    };
   },
 };
 </script>
@@ -69,4 +61,16 @@ body {
   }
 }
 </style>
-<style src="./styles.scss" lang="scss" scoped />
+<style lang="scss" scoped>
+#app {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+}
+
+.app__content {
+  position: relative;
+  flex-grow: 1;
+}
+</style>

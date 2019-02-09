@@ -3,13 +3,14 @@
     <div class="menu-bar__control">
       <!-- TODO: Do it better, pls dude -->
       <icon-button
-        icon="settings"
-        :inline-icon-style="{width: '50%', height: '50%'}"
+        icon="menu"
+        :inline-icon-style="{width: '70%', height: '70%'}"
         icon-color="light-gray"
         class="menu-bar__settings-icon"
-        @click="$emit('toggleSettings')"
+        @click="changeSettingsVisible(!settingsVisible)"
         v-show="this.settings.showSettingsIcon"
       />
+      <span class="menu-bar__vertical_line"></span>
       <icon-button
         icon="minus"
         :inline-icon-style="{width: '65%', height: '65%', 'margin-top': '5px'}"
@@ -37,7 +38,9 @@
 </template>
 <script>
 import { remote } from 'electron'; // eslint-disable-line
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
+
+import types from '../../store/types';
 
 import IconButton from './../dashboard_button';
 
@@ -50,10 +53,16 @@ export default {
     };
   },
 
+  methods: {
+    ...mapMutations({
+      changeSettingsVisible: types.mutations.CHANGE_SETTINGS_VISIBLE_CHANGE,
+    }),
+  },
+
   components: { IconButton },
 
   computed: {
-    ...mapState(['settings']),
+    ...mapState(['settings', 'settingsVisible']),
   },
 };
 </script>
