@@ -13,7 +13,7 @@
 import path from 'path';
 import fs from 'fs';
 
-import ErrorMessage from './../../dashboard_error';
+import ErrorMessage from '../dashboard_error';
 
 export default {
   name: 'grid_item',

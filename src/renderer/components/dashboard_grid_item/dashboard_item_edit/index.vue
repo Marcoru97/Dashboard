@@ -30,6 +30,7 @@
 </template>
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex';
+import { listen, pointer, value, styler, tween, easing } from 'popmotion';
 
 import IconButton from './../../dashboard_button';
 import types from '../../../store/types';
@@ -40,15 +41,22 @@ export default {
   data() {
     return {
       mouseDownMode: null,
+      itemNode: null,
       itemPosition: { x: 0, y: 0 },
 
       cursorOffsetPosition: { x: 0, y: 0 },
       clonedItem: null,
+      draggedItemXY: null,
     };
   },
 
   props: {
     itemId: {
+      type: Number,
+      required: true,
+    },
+
+    maxWidthUnits: {
       type: Number,
       required: true,
     },
@@ -59,13 +67,17 @@ export default {
   },
 
   mounted() {
+    this.itemNode = this.$el.parentElement;
+
     this.$refs.itemEditWidth.addEventListener('mousedown', this.itemMouseDownListener);
     this.$refs.itemEditHeight.addEventListener('mousedown', this.itemMouseDownListener);
     this.$refs.itemEditBoth.addEventListener('mousedown', this.itemMouseDownListener);
-    this.$refs.itemEditMove.addEventListener('mousedown', this.itemMouseDownListener);
+    listen(this.$refs.itemEditMove, 'mousedown').start(this.itemMouseDownListener);
 
     document.addEventListener('mouseup', this.itemMouseUpListener);
     document.addEventListener('mousemove', this.itemMouseMoveListener);
+
+    this.$store.watch(state => state.tabs, this.recalculateItemPosition, { deep: true });
   },
 
   beforeDestroy() {
@@ -85,7 +97,6 @@ export default {
 
     itemMouseDownListener(event) {
       this.mouseDownMode = event.target.dataset.action;
-      this.recalculateItemPosition();
 
       this.cursorOffsetPosition = {
         x: event.clientX - this.itemPosition.x,
@@ -104,15 +115,17 @@ export default {
           break;
         case 'MOVE': {
           document.body.style.cursor = 'all-scroll';
-          const itemElement = this.$el.parentElement;
-          this.clonedItem = itemElement.cloneNode(true);
+          this.clonedItem = this.itemNode.cloneNode(true);
           this.clonedItem.classList.add('dashboard-grid-item--drag');
           this.$root.$el.appendChild(this.clonedItem);
+          this.itemNode.style.visibility = 'hidden';
 
-          const xPos = event.clientX - this.cursorOffsetPosition.x;
-          const yPos = event.clientY - this.cursorOffsetPosition.y;
+          this.draggedItemXY = value(
+            { x: this.itemPosition.x, y: this.itemPosition.y },
+            styler(this.clonedItem).set,
+          );
 
-          this.clonedItem.style.transform = `translate(${xPos}px, ${yPos}px)`;
+          pointer(this.draggedItemXY.get()).start(this.draggedItemXY);
           break;
         }
         default:
@@ -122,7 +135,7 @@ export default {
     },
 
     itemMouseMoveListener(event) {
-      if (this.mouseDownMode !== null) {
+      if (this.mouseDownMode !== null && this.mouseDownMode !== 'MOVE') {
         if (this.mouseDownMode === 'WIDTH' || this.mouseDownMode === 'WIDTH_HEIGHT') {
           const currentWidth = this.item.size.width * this.itemSize;
           const relativeMouseX = event.clientX - this.itemPosition.x - currentWidth;
@@ -145,31 +158,41 @@ export default {
             this.changeItemHeight(Math.ceil(relativeMouseY / this.itemSize));
           }
         }
-
-        if (this.mouseDownMode === 'MOVE') {
-          const xPos = event.clientX - this.cursorOffsetPosition.x;
-          const yPos = event.clientY - this.cursorOffsetPosition.y;
-
-          this.clonedItem.style.transform = `translate(${xPos}px, ${yPos}px)`;
-        }
       }
     },
 
     itemMouseUpListener() {
+      if (this.mouseDownMode === 'MOVE' && this.clonedItem !== null) {
+        tween({
+          from: this.draggedItemXY.get(),
+          to: this.itemPosition,
+          duration: 200,
+          ease: easing.easeIn,
+        }).start({
+          update: p => this.draggedItemXY.update(p),
+          complete: () => {
+            this.$root.$el.removeChild(this.clonedItem);
+            this.clonedItem = null;
+            this.itemNode.style.visibility = 'visible';
+          },
+        });
+      }
+
       this.mouseDownMode = null;
       document.body.style.cursor = null;
       document.body.style['user-select'] = null;
-
-      if (this.clonedItem !== null) {
-        this.$root.$el.removeChild(this.clonedItem);
-      }
     },
 
     recalculateItemPosition() {
-      // Really heavy methode... Maybe a better solution?
-      const itemBounding = this.$el.getBoundingClientRect();
-      this.itemPosition.x = itemBounding.left;
-      this.itemPosition.y = itemBounding.top;
+      // const actualWidthUnits = Math.min(this.maxWidthUnits, this.item.size.width);
+      // this.itemPosition.x = actualWidthUnits *
+      // this.$nextTick(() => {
+      //   // Really heavy methode... Maybe a better solution?
+      //   const itemBounding = this.itemNode.getBoundingClientRect();
+      //   console.log('change', itemBounding.left - this.settings.itemMargin);
+      //   this.itemPosition.x = itemBounding.left - this.settings.itemMargin;
+      //   this.itemPosition.y = itemBounding.top - this.settings.itemMargin;
+      // });
     },
 
     changeItemWidth(ammount) {
@@ -188,13 +211,12 @@ export default {
         width: currentWidth + width,
         height: currentHeight + height,
       });
-      this.recalculateItemPosition();
     },
   },
 
   computed: {
-    ...mapState(['itemData', 'itemSize']),
-    ...mapGetters(['getModuleFromCurrentTab']),
+    ...mapState(['itemSize', 'settings']),
+    ...mapGetters(['getModuleFromCurrentTab', 'getModulesFromCurrentTab']),
 
     item() {
       return this.getModuleFromCurrentTab(this.itemId);

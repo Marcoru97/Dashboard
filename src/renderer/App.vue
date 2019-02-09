@@ -3,13 +3,13 @@
     <menu-bar/>
     <div class="app__content">
       <settings/>
-      <view/>
+      <overview/>
     </div>
   </div>
 </template>
 
 <script>
-import DashboardView from './components/dashboard_view';
+import Overview from './components/dashboard_overview';
 import Settings from './components/dashboard_settings';
 import IconButton from './components/dashboard_button';
 import MenuBar from './components/menu_bar';
@@ -17,7 +17,7 @@ import MenuBar from './components/menu_bar';
 export default {
   name: 'dashboard',
   components: {
-    DashboardView,
+    Overview,
     Settings,
     IconButton,
 
