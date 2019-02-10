@@ -1,7 +1,6 @@
 <template>
   <div class="menu-bar__frame">
     <div class="menu-bar__control">
-      <!-- TODO: Do it better, pls dude -->
       <icon-button
         icon="menu"
         :inline-icon-style="{width: '70%', height: '70%'}"
