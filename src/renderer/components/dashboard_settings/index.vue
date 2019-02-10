@@ -6,7 +6,7 @@
       v-shortkey.push="['esc']"
       @shortkey="changeSettingsVisible(false)"
     >
-      <div class="dashboard-settings__background"></div>
+      <div class="dashboard-settings__background" @click="changeSettingsVisible(false)"></div>
       <div class="dashboard-settings__menu">
         <section class="dasboard-settings-menu__header">
           <h1 class="dashboard-settings-menu__header">Settings</h1>
