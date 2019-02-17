@@ -16,6 +16,7 @@ export default new Vuex.Store({
     activeTabId: 0,
 
     settings: {},
+
     appDir: '',
 
     itemEditMode: false,

@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import types from './types';
 
 export default {
@@ -47,7 +48,8 @@ export default {
   },
 
   [types.mutations.SET_SETTINGS](state, settings) {
-    state.settings = settings;
+    Vue.set(state.settings, 'itemMargin', settings.itemMargin || 5);
+    Vue.set(state.settings, 'showSettingsIcon', settings.showSettingsIcon || true);
   },
 
   [types.mutations.CONFIG_DIR_SET](state, dir) {
