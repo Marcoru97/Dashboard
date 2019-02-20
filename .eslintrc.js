@@ -9,12 +9,13 @@ module.exports = {
     browser: true,
     node: true,
   },
-  extends: 'airbnb-base',
+  extends: ['airbnb-base', 'prettier'],
   globals: {
     __static: true,
   },
-  plugins: ['html'],
+  plugins: ['html', 'prettier'],
   rules: {
+    'prettier/prettier': ['error'],
     'global-require': 0,
     'import/no-unresolved': 0,
     'no-param-reassign': 0,
