@@ -1,0 +1,21 @@
+trigger:
+- master
+- develop
+
+pool:
+  vmImage: 'Ubuntu-16.04'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.15.2'
+  displayName: 'Install Node.js'
+
+- script: yarn
+  displayName: 'install dependencies'
+
+- script: yarn lint
+  displayName: 'lint app'
+
+- script: yarn build
+  displayName: 'build app'
