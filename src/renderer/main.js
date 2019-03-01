@@ -40,7 +40,7 @@ ipcRenderer.on('configDir', (event, message) => {
 
   store.commit(types.mutations.SET_SETTINGS, fr.readConfigFile());
 
-  fr.getTabFileNames().forEach((element) => {
+  fr.getTabFileNames().forEach(element => {
     store.commit(types.mutations.ADD_TAB, fr.readTabFile(element));
   });
 

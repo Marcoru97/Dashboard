@@ -61,7 +61,7 @@ export default {
           });
         }
       })
-      .catch((error) => {
+      .catch(error => {
         this.showConsoleError(error);
         this.extensionErrorMessage = error;
         this.extensionHasError = true;

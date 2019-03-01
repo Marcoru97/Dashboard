@@ -7,6 +7,7 @@
         :size="extension.size"
         :max-size="maxItemSize"
         :position="extension.position"
+        :editable="true"
       >
         <extension :name="extension.module" :size="extension.size"/>
       </grid-item>
