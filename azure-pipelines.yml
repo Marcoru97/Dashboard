@@ -2,8 +2,17 @@ trigger:
 - master
 - develop
 
+strategy:
+  matrix:
+    linux:
+      imageName: 'ubuntu-16.04'
+    mac:
+      imageName: 'macos-10.13'
+    windows:
+      imageName: 'vs2017-win2016'
+
 pool:
-  vmImage: 'Ubuntu-16.04'
+  vmImage: $(imageName)
 
 steps:
 - task: NodeTool@0
@@ -12,10 +21,10 @@ steps:
   displayName: 'Install Node.js'
 
 - script: yarn
-  displayName: 'install dependencies'
+  displayName: 'Install dependencies'
 
 - script: yarn lint
-  displayName: 'lint app'
+  displayName: 'Lint app'
 
-- script: yarn build
-  displayName: 'build app'
+- script: yarn build -- --publish=never
+  displayName: 'Build app'
