@@ -27,7 +27,7 @@ function createWindow() {
   mainWindow.setMenu(null);
 
   mainWindow.webContents.on('did-finish-load', () => {
-    const configDir = path.normalize(path.join(app.getPath('appData'), 'dashy'));
+    const configDir = path.normalize(path.join(app.getPath('appData'), 'Dashy'));
 
     mainWindow.webContents.send('configDir', configDir);
   });
