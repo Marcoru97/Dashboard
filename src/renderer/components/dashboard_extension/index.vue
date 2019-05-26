@@ -77,8 +77,8 @@ export default {
           const jsonFileData = this.loadFile(configPath);
 
           this.extensionData = {
-            ...JSON.parse(jsonFileData),
             ...this.extensionData,
+            ...JSON.parse(jsonFileData),
           };
 
           // Loads the javascript file
@@ -121,7 +121,7 @@ export default {
     showConsoleError(error) {
       // TODO: Maybe outsource it and make it more generic?
       // eslint-disable-next-line no-console
-      console.log(
+      console.error(
         'An error occurred while loading the extension \n',
         `Extension: '${this.extension}' \n`,
         `Error: ${error} \n`,

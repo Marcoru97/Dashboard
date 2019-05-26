@@ -9,7 +9,7 @@
         :position="extension.position"
         :editable="true"
       >
-        <extension :name="extension.module" :size="extension.size"/>
+        <extension :name="extension.name" :size="extension.size"/>
       </grid-item>
     </grid>
   </div>
