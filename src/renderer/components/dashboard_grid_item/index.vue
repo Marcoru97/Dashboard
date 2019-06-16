@@ -1,6 +1,10 @@
 <template>
-  <div class="dashboard-item__container" :style="style">
-    <div class="dashboard-item__editable-wrapper" ref="itemEdit">
+  <div class="dashboard-item__container" :style="itemStyle">
+    <div
+      class="dashboard-item__editable-wrapper"
+      v-show="editable"
+      ref="itemEdit"
+    >
       <div class="dashboard-item__editable-row dashboard-item__editable-row--growed">
         <div data-mode="MOVE" class="dashboard-item__editable-move"></div>
         <div data-mode="X-SCALE" class="dashboard-item__editable-scale-x"></div>
@@ -15,6 +19,8 @@
 </template>
 
 <script>
+// TODO: Make it more abstract without extension information.
+// Pass them as props
 import { mapState } from 'vuex';
 import { listen, pointer, tween, easing } from 'popmotion';
 
@@ -43,9 +49,10 @@ export default {
   data() {
     return {
       mouseDownListener: null,
-      mouseMoveListener: null,
       mouseUpListener: null,
-      pointer: null,
+      dragPointer: null,
+      scalePointer: null,
+      // Actuall position of the div
       pixelPosition: { x: 0, y: 0 },
       editMode: '',
     };
@@ -55,16 +62,19 @@ export default {
     this.mouseDownListener = listen(this.$refs.itemEdit, 'mousedown').start(e => {
       this.editMode = e.target.dataset.mode || '';
     });
-    this.mouseMoveListener = listen(window, 'mousemove').start(() => {});
+
     this.mouseUpListener = listen(window, 'mouseup').start(() => {
       this.editMode = '';
     });
   },
 
   destroyed() {
-    this.mouseDownListener.stop();
-    this.mouseMoveListener.stop();
-    this.mouseUpListener.stop();
+    if (this.mouseDownListener) {
+      this.mouseDownListener.stop();
+    }
+    if (this.mouseUpListener) {
+      this.mouseUpListener.stop();
+    }
   },
 
   watch: {
@@ -73,7 +83,7 @@ export default {
         switch (newMode) {
           case 'MOVE':
             document.body.style.cursor = 'move';
-            this.pointer = pointer(this.pixelPosition).start(({ x, y }) => {
+            this.dragPointer = pointer(this.pixelPosition).start(({ x, y }) => {
               this.pixelPosition.x = x;
               this.pixelPosition.y = y;
             });
@@ -81,14 +91,30 @@ export default {
 
           case 'X-SCALE':
             document.body.style.cursor = 'ew-resize';
+            this.scalePointer = pointer({ x: this.pixelSize.width }).start(({ x }) => {
+              const width = Math.ceil(x / this.itemSize);
+              this.$emit('update:size', { width, height: this.size.height || 0 });
+            });
             break;
 
           case 'Y-SCALE':
             document.body.style.cursor = 'ns-resize';
+            this.scalePointer = pointer({ y: this.pixelSize.height }).start(({ y }) => {
+              const height = Math.ceil(y / this.itemSize);
+              this.$emit('update:size', { width: this.size.width || 0, height });
+            });
             break;
 
           case 'XY-SCALE':
             document.body.style.cursor = 'nw-resize';
+            this.scalePointer = pointer({
+              x: this.pixelSize.width,
+              y: this.pixelSize.height,
+            }).start(({ x, y }) => {
+              const width = Math.ceil(x / this.itemSize);
+              const height = Math.ceil(y / this.itemSize);
+              this.$emit('update:size', { width, height });
+            });
             break;
 
           default:
@@ -96,11 +122,9 @@ export default {
 
         document.body.style['user-select'] = 'none';
       } else {
+        // edit action has finished
         switch (oldMode) {
           case 'MOVE':
-            this.pointer.stop();
-            this.pointer = null;
-
             tween({
               from: this.pixelPosition,
               to: this.calculatePixelPosition(this.position),
@@ -125,6 +149,16 @@ export default {
             break;
 
           default:
+        }
+
+        if (this.dragPointer) {
+          this.dragPointer.stop();
+          this.dragPointer = null;
+        }
+
+        if (this.scalePointer) {
+          this.scalePointer.stop();
+          this.scalePointer = null;
         }
 
         // Reset all styles to the default value
@@ -157,21 +191,23 @@ export default {
       itemSize: 'itemSize',
     }),
 
-    style() {
+    itemStyle() {
       return {
         top: `${this.pixelPosition.y}px`,
         left: `${this.pixelPosition.x}px`,
-        width: `${this.sizeWidth * this.itemSize}px`,
-        height: `${this.sizeHeight * this.itemSize}px`,
+        width: `${this.pixelSize.width}px`,
+        height: `${this.pixelSize.height}px`,
       };
     },
 
-    sizeWidth() {
-      return Math.min(this.size.width, this.maxSize);
-    },
+    pixelSize() {
+      const sizeWidth = Math.min(this.size.width, this.maxSize);
+      const sizeHeight = Math.min(this.size.height, this.maxSize);
 
-    sizeHeight() {
-      return Math.min(this.size.height, this.maxSize);
+      return {
+        width: sizeWidth * this.itemSize,
+        height: sizeHeight * this.itemSize,
+      };
     },
   },
 };

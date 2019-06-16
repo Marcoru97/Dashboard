@@ -7,7 +7,8 @@
         :size="extension.size"
         :max-size="maxItemSize"
         :position="extension.position"
-        :editable="true"
+        :editable="itemEditMode"
+        @update:size="updateItemSize({ itemId: key, ...$event })"
       >
         <extension :name="extension.name" :size="extension.size"/>
       </grid-item>
@@ -15,13 +16,15 @@
   </div>
 </template>
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { mapGetters, mapState, mapMutations } from 'vuex';
 import { listen } from 'popmotion';
 import throttle from 'lodash.throttle';
 
 import Grid from '../dashboard_grid';
 import GridItem from '../dashboard_grid_item';
 import Extension from '../dashboard_extension';
+
+import types from '../../store/types';
 
 export default {
   name: 'overview',
@@ -52,6 +55,12 @@ export default {
     this.resizeListener.stop();
   },
 
+  methods: {
+    ...mapMutations({
+      updateItemSize: types.mutations.UPDATE_ITEM_SIZE_FROM_CURRENT_TAB,
+    }),
+  },
+
   computed: {
     ...mapGetters({
       extensions: 'getModulesFromCurrentTab',
@@ -60,6 +69,7 @@ export default {
     ...mapState({
       itemMargin: state => state.settings.itemMargin,
       itemSize: 'itemSize',
+      itemEditMode: 'itemEditMode',
     }),
 
     maxItemSize() {
