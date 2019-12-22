@@ -2,7 +2,6 @@
 @import "./../../variables/animation";
 
 .dashboard-settings__wrapper {
-    display: flex;
     position: absolute;
     width: 100%;
     height: 100%;
@@ -10,7 +9,10 @@
 }
 
 .dashboard-settings__menu {
-    width: 400px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 600px;
     height: 100%;
     background: $background-window-frame;
 }
@@ -48,7 +50,8 @@
 }
 
 .dashboard-settings__background {
-    flex-grow: 1;
+    width: 100%;
+    height: 100%;
     background: #000000;
     opacity: 0.45;
 }
@@ -62,7 +65,7 @@
     &-leave-active .dashboard-settings__background { transition: opacity $animationTimeFast $easeInCubic }
     &-enter .dashboard-settings__background, &-leave-to .dashboard-settings__background { opacity: 0 }
 
-    &-enter-active .dashboard-settings__menu { transition: width $animationTimeFast $easeOutCubic }
-    &-leave-active .dashboard-settings__menu { transition: width $animationTimeFast $easeInCubic }
-    &-enter .dashboard-settings__menu, &-leave-to .dashboard-settings__menu { width: 0 }
+    &-enter-active .dashboard-settings__menu { transition: transform $animationTimeFast $easeOutCubic }
+    &-leave-active .dashboard-settings__menu { transition: transform $animationTimeFast $easeInCubic }
+    &-enter .dashboard-settings__menu, &-leave-to .dashboard-settings__menu { transform: translateX(100%); }
 }

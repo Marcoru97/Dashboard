@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import types from './types';
 
 export default {
@@ -24,8 +25,8 @@ export default {
     currentTab.modules.push({
       name: '',
       size: { width: 1, height: 1 },
+      position: { x: 0, y: 0 },
       ...item,
-      position: currentTab.modules.length,
     });
   },
 
@@ -47,14 +48,27 @@ export default {
   },
 
   [types.mutations.SET_SETTINGS](state, settings) {
-    state.settings = settings;
+    Vue.set(state.settings, 'itemMargin', settings.itemMargin || 5);
+    Vue.set(state.settings, 'showSettingsIcon', settings.showSettingsIcon || true);
+  },
+
+  [types.mutations.CONFIG_DIR_SET](state, dir) {
+    state.appDir = dir;
   },
 
   [types.mutations.ITEM_EDIT_MODE_CHANGE](state, visible) {
     state.itemEditMode = visible;
   },
 
-  [types.mutations.CONFIG_DIR_SET](state, dir) {
-    state.appDir = dir;
+  [types.mutations.CHANGE_SETTINGS_VISIBLE_CHANGE](state, visibility) {
+    state.settingsVisible = visibility;
+  },
+
+  [types.mutations.ADD_AVAILABLE_EXTENSION](state, name) {
+    state.availableExtensions.add(name);
+  },
+
+  [types.mutations.CLEAR_AVAILABLE_EXTENSIONS](state) {
+    state.availableExtensions.clear();
   },
 };

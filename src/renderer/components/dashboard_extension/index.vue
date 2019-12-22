@@ -1,29 +1,29 @@
 <template>
-  <div class="dashboard-item">
+  <div>
     <error-message
-      v-show="extensionHasError"
-      errorMessageSimple="Something went wrong while loading the extension!"
+      v-if="extensionHasError"
+      errorMessageHeader="Something went wrong while loading the extension!"
       :errorMessage="extensionErrorMessage"
     />
-    <div class="dasboard-item__extension" v-html="extensionTemplate"></div>
+    <div v-else-if="extensionLoaded" class="dasboard-item__extension" v-html="extensionTemplate"></div>
+    <div v-else>Loading...</div>
   </div>
 </template>
-
 <script>
 import path from 'path';
 import fs from 'fs';
 
-import ErrorMessage from './../../dashboard_error';
+import ErrorMessage from '../dashboard_error';
 
 export default {
-  name: 'grid_item',
+  name: 'extension',
 
   props: {
-    extension: {
+    name: {
       type: String,
       required: true,
     },
-    extensionSize: {
+    size: {
       type: Object,
       required: true,
     },
@@ -46,18 +46,22 @@ export default {
       },
       extensionJavascript: {},
       extensionTemplate: '',
-      extensionPath: path.join(this.$store.state.appDir, 'extensions', this.extension),
+      extensionPath: path.join(this.$store.state.appDir, 'extensions', this.name),
     };
   },
 
   mounted() {
     this.loadExtensionFiles()
       .then(() => {
+        this.extensionLoaded = true;
+
         if (Object.prototype.hasOwnProperty.call(this.extensionJavascript, 'loaded')) {
-          this.extensionJavascript.loaded();
+          this.$nextTick(() => {
+            this.extensionJavascript.loaded();
+          });
         }
       })
-      .catch((error) => {
+      .catch(error => {
         this.showConsoleError(error);
         this.extensionErrorMessage = error;
         this.extensionHasError = true;
@@ -73,8 +77,8 @@ export default {
           const jsonFileData = this.loadFile(configPath);
 
           this.extensionData = {
-            ...JSON.parse(jsonFileData),
             ...this.extensionData,
+            ...JSON.parse(jsonFileData),
           };
 
           // Loads the javascript file
@@ -88,6 +92,13 @@ export default {
               'itemSize',
               `"use strict"; ${javascriptFileData}`,
             )(this.$el, this.extensionSize);
+
+            // check if class
+            if (typeof this.extensionJavascript === 'function') {
+              const extensionClass = this.extensionJavascript;
+              // eslint-disable-next-line new-cap
+              this.extensionJavascript = new extensionClass();
+            }
 
             if (Object.prototype.hasOwnProperty.call(this.extensionJavascript, 'initialize')) {
               this.extensionJavascript.initialize();
@@ -117,7 +128,7 @@ export default {
     showConsoleError(error) {
       // TODO: Maybe outsource it and make it more generic?
       // eslint-disable-next-line no-console
-      console.log(
+      console.error(
         'An error occurred while loading the extension \n',
         `Extension: '${this.extension}' \n`,
         `Error: ${error} \n`,
@@ -126,4 +137,5 @@ export default {
   },
 };
 </script>
-<style lang="scss" src="./styles.scss" scoped />
+<style  lang="scss" src="./styles.scss" scoped>
+</style>

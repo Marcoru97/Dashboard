@@ -1,7 +1,10 @@
 <template>
   <button class="icon-button__button" @click="click">
-    <svg :style="inlineIconStyle" :class="`icon-button--color-${iconColor} icon-button--animation-${animation}`">
-      <use :xlink:href="`#${icon}`"/>
+    <svg
+      :style="inlineIconStyle"
+      :class="`icon-button--color-${iconColor} icon-button--animation-${animation}`"
+    >
+      <use v-bind:xlink:href="`#${icon}`"></use>
     </svg>
   </button>
 </template>

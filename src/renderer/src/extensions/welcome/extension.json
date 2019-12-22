@@ -1,0 +1,8 @@
+{
+    "name": "Welcome",
+    "description": "First start extension",
+    "version": 1,
+    "author": "Marco",
+    "js": "extension.js",
+    "html": "extension.html"
+}

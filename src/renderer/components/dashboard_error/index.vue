@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-error__box">
     <div class="dashboard-error_wrapper" @click="toggleTooltip()">
-      <div class="dashboard-error_message-simple" v-text="errorMessageSimple"></div>
+      <div class="dashboard-error_message-header" v-text="errorMessageHeader"></div>
       <icon-button
         :icon="tooltipButtonIcon"
         class="dashboard-error__collapse-button"
@@ -35,7 +35,7 @@ export default {
   name: 'error-box',
 
   props: {
-    errorMessageSimple: {
+    errorMessageHeader: {
       type: String,
       required: true,
     },

@@ -12,13 +12,17 @@ export default new Vuex.Store({
     // Currently a const value
     itemSize: 250,
 
+    availableExtensions: new Set(),
+
     tabs: [],
     activeTabId: 0,
 
     settings: {},
+
     appDir: '',
 
     itemEditMode: false,
+    settingsVisible: false,
   },
 
   mutations,

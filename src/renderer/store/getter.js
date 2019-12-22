@@ -1,7 +1,17 @@
 export default {
   getCurrentTab: state => state.tabs[state.activeTabId],
 
-  getModuleFromCurrentTab: state => id => state.tabs[state.activeTabId].modules[id],
+  getModuleFromCurrentTab(state, id) {
+    if (!state.tabs[state.activeTabId]) {
+      return {};
+    }
+    return state.tabs[state.activeTabId].modules[id];
+  },
 
-  getModulesFromCurrentTab: state => state.tabs[state.activeTabId].modules,
+  getModulesFromCurrentTab(state) {
+    if (!state.tabs[state.activeTabId]) {
+      return [];
+    }
+    return state.tabs[state.activeTabId].modules;
+  },
 };
