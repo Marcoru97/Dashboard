@@ -25,8 +25,8 @@ export default {
     currentTab.modules.push({
       name: '',
       size: { width: 1, height: 1 },
+      position: { x: 0, y: 0 },
       ...item,
-      position: currentTab.modules.length,
     });
   },
 
@@ -62,5 +62,13 @@ export default {
 
   [types.mutations.CHANGE_SETTINGS_VISIBLE_CHANGE](state, visibility) {
     state.settingsVisible = visibility;
+  },
+
+  [types.mutations.ADD_AVAILABLE_EXTENSION](state, name) {
+    state.availableExtensions.add(name);
+  },
+
+  [types.mutations.CLEAR_AVAILABLE_EXTENSIONS](state) {
+    state.availableExtensions.clear();
   },
 };

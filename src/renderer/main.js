@@ -4,6 +4,7 @@ import VueShortcut from 'vue-shortkey';
 import { ipcRenderer } from 'electron'; // eslint-disable-line import/no-extraneous-dependencies
 
 import store from './store';
+import types from './store/types';
 
 import App from './App';
 
@@ -27,7 +28,7 @@ import './assets/settings.svg';
 
 Vue.use(VueShortcut);
 
-// TODO: Extract as a vuex module?
+// TODO: Extract as a vuex module and remove useless things to save. eg. itemEditMode
 const DEFAULT_STORE_STATE = {
   itemSize: 250,
   tabs: [
@@ -56,18 +57,24 @@ ipcRenderer.on('configDir', (event, message) => {
   const userState = fr.readStateFile();
 
   store.replaceState({
+    ...store.state,
     ...DEFAULT_STORE_STATE,
     ...userState,
+
+    // Todo: Dont set them manuallly, create a module
     appDir: message,
+    availableExtensions: new Set(),
   });
 
   store.subscribe((mutation, state) => fr.writeStateFile(state));
 
   // TODO: Loading animation?
-  // eslint-disable-next-line no-unused-vars
-  const vueInstance = new Vue({
-    el: '#app',
-    render: h => h(App),
-    store,
+  store.dispatch(types.actions.LOAD_AVAILABLE_EXTENSIONS).then(() => {
+    // eslint-disable-next-line no-unused-vars
+    const vueInstance = new Vue({
+      el: '#app',
+      render: h => h(App),
+      store,
+    });
   });
 });

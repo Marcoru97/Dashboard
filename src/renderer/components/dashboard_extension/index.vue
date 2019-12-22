@@ -93,6 +93,13 @@ export default {
               `"use strict"; ${javascriptFileData}`,
             )(this.$el, this.extensionSize);
 
+            // check if class
+            if (typeof this.extensionJavascript === 'function') {
+              const extensionClass = this.extensionJavascript;
+              // eslint-disable-next-line new-cap
+              this.extensionJavascript = new extensionClass();
+            }
+
             if (Object.prototype.hasOwnProperty.call(this.extensionJavascript, 'initialize')) {
               this.extensionJavascript.initialize();
             }

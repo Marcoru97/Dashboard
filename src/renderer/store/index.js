@@ -12,6 +12,8 @@ export default new Vuex.Store({
     // Currently a const value
     itemSize: 250,
 
+    availableExtensions: new Set(),
+
     tabs: [],
     activeTabId: 0,
 

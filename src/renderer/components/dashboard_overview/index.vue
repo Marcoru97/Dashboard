@@ -12,6 +12,21 @@
       >
         <extension :name="extension.name" :size="extension.size"/>
       </grid-item>
+      <grid-item
+        v-show="itemEditMode"
+        class="overview__add-extension"
+        :size="{ width: 1, height: 1 }"
+        :max-size="1"
+        :position="{x: 0, y: 4}"
+        :editable="false"
+      >
+      <icon-button
+        icon="plus"
+        class="dashboard-overview__add-extension-button"
+        icon-color="gray"
+        @click="addNewExtension"
+      />
+      </grid-item>
     </grid>
   </div>
 </template>
@@ -23,6 +38,7 @@ import throttle from 'lodash.throttle';
 import Grid from '../dashboard_grid';
 import GridItem from '../dashboard_grid_item';
 import Extension from '../dashboard_extension';
+import IconButton from '../dashboard_button';
 
 import types from '../../store/types';
 
@@ -33,6 +49,7 @@ export default {
     Grid,
     GridItem,
     Extension,
+    IconButton,
   },
 
   data() {
@@ -58,7 +75,12 @@ export default {
   methods: {
     ...mapMutations({
       updateItemSize: types.mutations.UPDATE_ITEM_SIZE_FROM_CURRENT_TAB,
+      addExtension: types.mutations.ADD_ITEM_TO_CURRENT_TAB,
     }),
+
+    addNewExtension() {
+      this.addExtension();
+    },
   },
 
   computed: {
