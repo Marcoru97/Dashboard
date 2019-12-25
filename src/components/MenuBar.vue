@@ -47,9 +47,9 @@
 import { remote } from 'electron'; // eslint-disable-line
 import { mapState, mapMutations } from "vuex";
 
-import types from "../../store/types";
+import types from "@/store/types";
 
-import IconButton from "./../dashboard_button";
+import IconButton from "@/components/IconButton";
 
 export default {
   name: "menu-bar",
@@ -73,4 +73,55 @@ export default {
   }
 };
 </script>
-<style lang="scss" src="./style.scss" scoped />
+<style lang="scss" scoped>
+.menu-bar__frame {
+  width: 100%;
+  height: 30px;
+  background: $background-window-frame;
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+}
+
+.menu-bar__control {
+  display: flex;
+  float: right;
+  margin: 0 3px 0 0;
+  -webkit-app-region: no-drag;
+}
+
+.menu-bar__vertical_line {
+  width: 2px;
+  height: 30px;
+  margin-left: 7px;
+  margin-right: 7px;
+  background: $foreground;
+}
+
+.menu-bar__max-icon,
+.menu-bar__min-icon,
+.menu-bar__close-icon,
+.menu-bar__settings-icon {
+  width: 40px;
+  height: 30px;
+}
+
+.menu-bar__close-icon:hover > svg {
+  color: #ffffff !important;
+  fill: #ffffff !important;
+}
+
+.menu-bar__close-icon {
+  &:hover {
+    background: $background-window-frame-hover-red !important;
+    fill: #ffffff !important;
+  }
+}
+
+.menu-bar__max-icon,
+.menu-bar__min-icon,
+.menu-bar__settings-icon {
+  &:hover {
+    background: $background-window-frame-hover !important;
+  }
+}
+</style>

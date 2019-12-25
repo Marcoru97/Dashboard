@@ -15,4 +15,3 @@ export default {
   props: {}
 };
 </script>
-<style lang="scss" src="./styles.scss" scoped />

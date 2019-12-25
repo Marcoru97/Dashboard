@@ -14,7 +14,7 @@
       </grid-item>
       <grid-item
         v-show="itemEditMode"
-        class="overview__add-extension"
+        class="grid-container__add-extension"
         :size="{ width: 1, height: 1 }"
         :max-size="1"
         :position="{ x: 0, y: 4 }"
@@ -22,7 +22,7 @@
       >
         <icon-button
           icon="plus"
-          class="dashboard-overview__add-extension-button"
+          class="grid-container__add-extension-button"
           icon-color="gray"
           @click="addNewExtension"
         />
@@ -35,15 +35,15 @@ import { mapGetters, mapState, mapMutations } from "vuex";
 import { listen } from "popmotion";
 import throttle from "lodash.throttle";
 
-import Grid from "../dashboard_grid";
-import GridItem from "../dashboard_grid_item";
-import Extension from "../dashboard_extension";
-import IconButton from "../dashboard_button";
+import Grid from "@/components/grid/Grid";
+import GridItem from "@/components/grid/GridItem";
+import Extension from "@/components/Extension";
+import IconButton from "@/components/IconButton";
 
-import types from "../../store/types";
+import types from "@/store/types";
 
 export default {
-  name: "overview",
+  name: "grid-container",
 
   components: {
     Grid,
@@ -104,4 +104,15 @@ export default {
   }
 };
 </script>
-<style lang="scss" src="./styles.scss" scoped />
+<style lang="scss" scoped>
+.grid-container__add-extension {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid-container__add-extension-button {
+  width: 100%;
+  height: 100%;
+}
+</style>

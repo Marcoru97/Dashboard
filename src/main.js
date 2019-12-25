@@ -25,6 +25,7 @@ import "./assets/minus.svg";
 import "./assets/move.svg";
 import "./assets/plus.svg";
 import "./assets/settings.svg";
+import "./assets/content_copy.svg";
 
 Vue.use(VueShortcut);
 

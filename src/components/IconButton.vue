@@ -45,4 +45,45 @@ export default {
 };
 </script>
 
-<style lang="scss" src="./styles.scss" scoped />
+<style lang="scss" scoped>
+.icon-button__button {
+  display: flex;
+  justify-content: center;
+  background: 0;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  cursor: pointer;
+  transition: background-color $animationTimeFaster $easeInOutCubic;
+
+  &:focus {
+    outline: 0;
+  }
+
+  // Better animation handling?
+  &:hover .icon-button--animation-hover-rotate {
+    transform: rotateZ(45deg);
+  }
+}
+
+.icon-button--animation-hover-rotate {
+  transition: transform 300ms $easeInOutCubic;
+}
+
+.icon-button--color-light-gray {
+  fill: $button-light-gray;
+}
+
+.icon-button--color-gray {
+  fill: $button-gray;
+}
+
+.icon-button--color-dark-gray {
+  fill: $button-dark-gray;
+}
+
+.icon-button--color-white {
+  fill: #ffffff;
+}
+</style>

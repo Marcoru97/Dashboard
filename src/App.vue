@@ -2,22 +2,22 @@
   <div id="app">
     <menu-bar />
     <div class="app__content">
-      <settings />
-      <overview />
+      <settings-menu />
+      <grid-container />
     </div>
   </div>
 </template>
 
 <script>
-import Overview from "./components/dashboard_overview";
-import Settings from "./components/dashboard_settings";
-import MenuBar from "./components/menu_bar";
+import GridContainer from "@/components/grid/GridContainer";
+import SettingsMenu from "@/components/SettingsMenu";
+import MenuBar from "@/components/MenuBar";
 
 export default {
   name: "dashboard",
   components: {
-    Overview,
-    Settings,
+    GridContainer,
+    SettingsMenu,
 
     MenuBar
   }

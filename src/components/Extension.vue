@@ -5,11 +5,7 @@
       errorMessageHeader="Something went wrong while loading the extension!"
       :errorMessage="extensionErrorMessage"
     />
-    <div
-      v-else-if="extensionLoaded"
-      class="dasboard-item__extension"
-      v-html="extensionTemplate"
-    ></div>
+    <div v-else-if="extensionLoaded" v-html="extensionTemplate"></div>
     <div v-else>Loading...</div>
   </div>
 </template>
@@ -17,7 +13,7 @@
 import path from "path";
 import fs from "fs";
 
-import ErrorMessage from "../dashboard_error";
+import ErrorMessage from "@/components/TileError";
 
 export default {
   name: "extension",
@@ -161,4 +157,3 @@ export default {
   }
 };
 </script>
-<style lang="scss" src="./styles.scss" scoped></style>
