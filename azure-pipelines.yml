@@ -25,5 +25,5 @@ steps:
 - script: yarn lint
   displayName: 'Lint app'
 
-- script: yarn electron:build
+- script: yarn electron:build --publish never
   displayName: 'Build app'
