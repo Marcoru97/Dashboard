@@ -1,5 +1,5 @@
 export default {
-  getCurrentTab: state => state.tabs[state.activeTabId],
+  getCurrentTab: (state) => state.tabs[state.activeTabId],
 
   getModuleFromCurrentTab(state, id) {
     if (!state.tabs[state.activeTabId]) {
@@ -13,5 +13,5 @@ export default {
       return [];
     }
     return state.tabs[state.activeTabId].modules;
-  }
+  },
 };

@@ -22,10 +22,10 @@ export default new Vuex.Store({
     appDir: "",
 
     itemEditMode: false,
-    settingsVisible: false
+    settingsVisible: false,
   },
 
   mutations,
   getters,
-  actions
+  actions,
 });

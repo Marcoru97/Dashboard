@@ -1,22 +1,13 @@
 <template>
-  <div class="dashboard-item__container" :style="itemStyle">
-    <div
-      class="dashboard-item__editable-wrapper"
-      v-show="editable"
-      ref="itemEdit"
-    >
-      <div
-        class="dashboard-item__editable-row dashboard-item__editable-row--growed"
-      >
-        <div data-mode="MOVE" class="dashboard-item__editable-move"></div>
-        <div data-mode="X-SCALE" class="dashboard-item__editable-scale-x"></div>
+  <div class="grid-item__container" :style="itemStyle">
+    <div class="grid-item__editable-wrapper" v-show="editable" ref="itemEdit">
+      <div class="grid-item__editable-row grid-item__editable-row--growed">
+        <div data-mode="MOVE" class="grid-item__editable-move"></div>
+        <div data-mode="X-SCALE" class="grid-item__editable-scale-x"></div>
       </div>
-      <div class="dashboard-item__editable-row">
-        <div data-mode="Y-SCALE" class="dashboard-item__editable-scale-y"></div>
-        <div
-          data-mode="XY-SCALE"
-          class="dashboard-item__editable-scale-xy"
-        ></div>
+      <div class="grid-item__editable-row">
+        <div data-mode="Y-SCALE" class="grid-item__editable-scale-y"></div>
+        <div data-mode="XY-SCALE" class="grid-item__editable-scale-xy"></div>
       </div>
     </div>
     <slot />
@@ -30,7 +21,7 @@ import { mapState } from "vuex";
 import { listen, pointer, tween, easing } from "popmotion";
 
 export default {
-  name: "grid_item",
+  name: "grid-item",
 
   props: {
     size: {
@@ -229,4 +220,52 @@ export default {
   }
 };
 </script>
-<style lang="scss" src="./styles.scss" scoped />
+<style lang="scss" scoped>
+$editbar-size: 4px;
+
+.grid-item__container {
+  position: absolute;
+}
+
+.grid-item__editable-wrapper {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.grid-item__editable-row--growed {
+  flex-grow: 1;
+}
+
+.grid-item__editable-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.grid-item__editable-move {
+  flex-grow: 1;
+  cursor: move;
+}
+
+.grid-item__editable-scale-x {
+  width: $editbar-size;
+  background: #000;
+  cursor: ew-resize;
+}
+
+.grid-item__editable-scale-y {
+  flex-grow: 1;
+  height: $editbar-size;
+  background: #000;
+  cursor: ns-resize;
+}
+
+.grid-item__editable-scale-xy {
+  width: $editbar-size;
+  height: $editbar-size;
+  background: #000;
+  cursor: nw-resize;
+}
+</style>

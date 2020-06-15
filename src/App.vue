@@ -1,24 +1,85 @@
 <template>
   <div id="app">
     <menu-bar />
-    <div class="app__content">
-      <settings />
-      <overview />
-    </div>
+    <simplebar class="app__wrapper">
+      <div class="app__content">
+        <settings-menu />
+        <grid
+          :items="[
+            { size: { width: 9, height: 10 } },
+            { size: { width: 2, height: 1 } },
+            { size: { width: 4, height: 6 } },
+            { size: { width: 10, height: 10 } },
+            { size: { width: 6, height: 2 } },
+            { size: { width: 1, height: 8 } },
+            { size: { width: 8, height: 6 } },
+            { size: { width: 7, height: 7 } },
+            { size: { width: 7, height: 8 } },
+            { size: { width: 7, height: 8 } },
+            { size: { width: 2, height: 2 } },
+            { size: { width: 1, height: 3 } },
+            { size: { width: 4, height: 6 } },
+            { size: { width: 2, height: 2 } },
+            { size: { width: 3, height: 10 } },
+            { size: { width: 2, height: 9 } },
+            { size: { width: 1, height: 3 } },
+            { size: { width: 5, height: 3 } },
+            { size: { width: 8, height: 5 } },
+            { size: { width: 9, height: 2 } },
+            { size: { width: 1, height: 6 } },
+            { size: { width: 10, height: 9 } },
+            { size: { width: 8, height: 9 } },
+            { size: { width: 9, height: 1 } },
+            { size: { width: 1, height: 6 } },
+            { size: { width: 8, height: 7 } },
+            { size: { width: 10, height: 5 } },
+            { size: { width: 9, height: 7 } },
+            { size: { width: 5, height: 6 } },
+            { size: { width: 6, height: 10 } },
+            { size: { width: 1, height: 4 } },
+            { size: { width: 6, height: 8 } },
+            { size: { width: 2, height: 2 } },
+            { size: { width: 7, height: 1 } },
+            { size: { width: 6, height: 4 } },
+            { size: { width: 5, height: 8 } },
+            { size: { width: 1, height: 2 } },
+            { size: { width: 10, height: 8 } },
+            { size: { width: 4, height: 6 } },
+            { size: { width: 4, height: 3 } },
+            { size: { width: 4, height: 10 } },
+            { size: { width: 3, height: 10 } },
+            { size: { width: 4, height: 4 } },
+            { size: { width: 9, height: 5 } },
+            { size: { width: 5, height: 9 } },
+            { size: { width: 3, height: 7 } },
+            { size: { width: 5, height: 10 } },
+            { size: { width: 1, height: 3 } },
+            { size: { width: 7, height: 3 } },
+            { size: { width: 6, height: 6 } },
+            { size: { width: 7, height: 1 } },
+            { size: { width: 7, height: 1 } },
+            { size: { width: 3, height: 10 } }
+          ]"
+        />
+      </div>
+    </simplebar>
   </div>
 </template>
 
 <script>
-import Overview from "./components/dashboard_overview";
-import Settings from "./components/dashboard_settings";
-import MenuBar from "./components/menu_bar";
+import Simplebar from "simplebar-vue";
+
+import Grid from "@/components/grid/Grid";
+import SettingsMenu from "@/components/SettingsMenu";
+import MenuBar from "@/components/MenuBar";
 
 export default {
   name: "dashboard",
-  components: {
-    Overview,
-    Settings,
 
+  components: {
+    Simplebar,
+    Grid,
+    SettingsMenu,
     MenuBar
   }
 };
@@ -29,7 +90,7 @@ export default {
 html,
 body {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   top: 0;
   left: 0;
   margin: 0;
@@ -41,21 +102,6 @@ body {
   text-rendering: optimizeLegibility;
   color: $text;
   background: $background;
-  overflow: hidden;
-}
-
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: $scroll-bar-foreground;
-  border-radius: 50px;
-  box-shadow: 1px;
-
-  &:hover {
-    background: $scroll-bar-foreground-hover;
-  }
 }
 </style>
 <style lang="scss" scoped>
@@ -64,6 +110,11 @@ body {
   width: 100%;
   height: 100%;
   flex-direction: column;
+}
+
+.app__wrapper {
+  width: 100%;
+  height: calc(100% - 30px);
 }
 
 .app__content {
