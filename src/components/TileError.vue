@@ -45,21 +45,21 @@ export default {
   props: {
     errorMessageHeader: {
       type: String,
-      required: true
+      required: true,
     },
     errorMessage: {
-      required: true
-    }
+      required: true,
+    },
   },
 
   components: {
-    IconButton
+    IconButton,
   },
 
   data() {
     return {
       tooltipCollapsed: true,
-      showCopyMessage: false
+      showCopyMessage: false,
     };
   },
 
@@ -76,7 +76,7 @@ export default {
         return `${this.errorMessage.toString()}`;
       }
       return this.errorMessage;
-    }
+    },
   },
 
   methods: {
@@ -97,8 +97,8 @@ export default {
       window.setTimeout(() => {
         this.showCopyMessage = false;
       }, 500);
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

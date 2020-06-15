@@ -11,7 +11,7 @@ export default {
 
     currentTab.modules[itemId] = {
       ...currentTab.modules[itemId],
-      ...newItemData
+      ...newItemData,
     };
   },
 
@@ -32,7 +32,7 @@ export default {
       name: "",
       size: { width: 1, height: 1 },
       position: { x: 0, y: 0 },
-      ...item
+      ...item,
     });
   },
 
@@ -49,7 +49,7 @@ export default {
       last_update: 0,
       modules: [],
       position: state.tabs.length,
-      ...tab
+      ...tab,
     });
   },
 
@@ -80,5 +80,5 @@ export default {
 
   [types.mutations.CLEAR_AVAILABLE_EXTENSIONS](state) {
     state.availableExtensions.clear();
-  }
+  },
 };

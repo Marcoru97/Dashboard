@@ -1,7 +1,7 @@
 import Vue from "vue";
 import axios from "axios";
 import VueShortcut from "vue-shortkey";
-import { ipcRenderer } from "electron"; // eslint-disable-line import/no-extraneous-dependencies
+import { ipcRenderer } from "electron";
 
 import store from "./store";
 import types from "./store/types";
@@ -26,6 +26,8 @@ import "./assets/move.svg";
 import "./assets/plus.svg";
 import "./assets/settings.svg";
 import "./assets/content_copy.svg";
+
+import "simplebar/dist/simplebar.css";
 
 Vue.use(VueShortcut);
 

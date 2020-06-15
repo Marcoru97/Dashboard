@@ -2,9 +2,7 @@
   <button class="icon-button__button" @click="click">
     <svg
       :style="inlineIconStyle"
-      :class="
-        `icon-button--color-${iconColor} icon-button--animation-${animation}`
-      "
+      :class="`icon-button--color-${iconColor} icon-button--animation-${animation}`"
     >
       <use v-bind:xlink:href="`#${icon}`"></use>
     </svg>
@@ -17,31 +15,31 @@ export default {
   props: {
     icon: {
       type: String,
-      required: false
+      required: false,
     },
     iconColor: {
       type: String,
       required: false,
-      default: "white"
+      default: "white",
     },
     animation: {
       type: String,
       required: false,
-      default: "none"
+      default: "none",
     },
     inlineIconStyle: {
       type: Object,
       required: false,
-      default: () => ({ width: "100%", height: "100%" })
-    }
+      default: () => ({ width: "100%", height: "100%" }),
+    },
   },
 
   methods: {
     click(e) {
       // Pass the event one layer up
       this.$emit("click", e);
-    }
-  }
+    },
+  },
 };
 </script>
 

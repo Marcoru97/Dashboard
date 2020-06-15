@@ -46,15 +46,15 @@ export default {
   components: { IconButton },
 
   computed: {
-    ...mapState(["itemEditMode", "settingsVisible"])
+    ...mapState(["itemEditMode", "settingsVisible"]),
   },
 
   methods: {
     ...mapMutations({
       changeItemEditMode: types.mutations.ITEM_EDIT_MODE_CHANGE,
-      changeSettingsVisible: types.mutations.CHANGE_SETTINGS_VISIBLE_CHANGE
-    })
-  }
+      changeSettingsVisible: types.mutations.CHANGE_SETTINGS_VISIBLE_CHANGE,
+    }),
+  },
 };
 </script>
 <style lang="scss" scoped>

@@ -79,7 +79,7 @@ export default {
 
   methods: {
     loadExtensionFiles() {
-      return new Promise(async (resolve, reject) => {
+      return new Promise((resolve, reject) => {
         try {
           // Loads the json config file
           const configPath = path.join(this.extensionPath, "extension.json");

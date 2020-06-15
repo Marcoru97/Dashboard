@@ -15,7 +15,7 @@
         :inline-icon-style="{
           width: '65%',
           height: '65%',
-          'margin-top': '5px'
+          'margin-top': '5px',
         }"
         icon-color="light-gray"
         class="menu-bar__min-icon"
@@ -56,21 +56,21 @@ export default {
 
   data() {
     return {
-      mainWindow: remote.getCurrentWindow()
+      mainWindow: remote.getCurrentWindow(),
     };
   },
 
   methods: {
     ...mapMutations({
-      changeSettingsVisible: types.mutations.CHANGE_SETTINGS_VISIBLE_CHANGE
-    })
+      changeSettingsVisible: types.mutations.CHANGE_SETTINGS_VISIBLE_CHANGE,
+    }),
   },
 
   components: { IconButton },
 
   computed: {
-    ...mapState(["settings", "settingsVisible"])
-  }
+    ...mapState(["settings", "settingsVisible"]),
+  },
 };
 </script>
 <style lang="scss" scoped>
