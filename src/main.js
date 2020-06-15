@@ -43,16 +43,16 @@ const DEFAULT_STORE_STATE = {
         {
           name: "welcome",
           size: { width: 1, height: 1 },
-          position: { x: 0, y: 0 }
-        }
+          position: { x: 0, y: 0 },
+        },
       ],
-      position: 0
-    }
+      position: 0,
+    },
   ],
   activeTabId: 0,
   settings: { itemMargin: 5, showSettingsIcon: true },
   itemEditMode: false,
-  settingsVisible: false
+  settingsVisible: false,
 };
 
 Vue.http = Vue.prototype.$http = axios;
@@ -70,7 +70,7 @@ ipcRenderer.on("configDir", (event, message) => {
 
     // Todo: Dont set them manuallly, create a module
     appDir: message,
-    availableExtensions: new Set()
+    availableExtensions: new Set(),
   });
 
   store.subscribe((mutation, state) => fr.writeStateFile(state));
@@ -80,8 +80,8 @@ ipcRenderer.on("configDir", (event, message) => {
     // eslint-disable-next-line no-unused-vars
     const vueInstance = new Vue({
       el: "#app",
-      render: h => h(App),
-      store
+      render: (h) => h(App),
+      store,
     });
   });
 });

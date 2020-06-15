@@ -47,6 +47,7 @@ export default {
 .icon-button__button {
   display: flex;
   justify-content: center;
+  align-items: center;
   background: 0;
   border: 0;
   padding: 0;

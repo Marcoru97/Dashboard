@@ -23,17 +23,17 @@ export default {
   name: "grid",
 
   components: {
-    GridItem
+    GridItem,
   },
 
   props: {
-    items: Array
+    items: Array,
   },
 
   data() {
     return {
       windowWidth: 0,
-      resizeListener: null
+      resizeListener: null,
     };
   },
 
@@ -52,9 +52,9 @@ export default {
 
   computed: {
     ...mapState({
-      itemMargin: state => state.settings.itemMargin,
+      itemMargin: (state) => state.settings.itemMargin,
       itemSize: "itemSize",
-      itemEditMode: "itemEditMode"
+      itemEditMode: "itemEditMode",
     }),
 
     itemLength() {
@@ -81,10 +81,10 @@ export default {
         margin: `${this.itemMargin}px`,
         // "grid-template-columns": `repeat(${this.maxItemsPerRow}, ${this.itemSize}px)`,
         // "grid-template-rows": `repeat(auto-fit, ${this.itemSize}px)`,
-        "grid-gap": `${this.itemMargin}px ${this.itemMargin}px`
+        "grid-gap": `${this.itemMargin}px ${this.itemMargin}px`,
       };
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

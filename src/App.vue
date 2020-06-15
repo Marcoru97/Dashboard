@@ -58,7 +58,7 @@
             { size: { width: 6, height: 6 } },
             { size: { width: 7, height: 1 } },
             { size: { width: 7, height: 1 } },
-            { size: { width: 3, height: 10 } }
+            { size: { width: 3, height: 10 } },
           ]"
         />
       </div>
@@ -80,8 +80,8 @@ export default {
     Simplebar,
     Grid,
     SettingsMenu,
-    MenuBar
-  }
+    MenuBar,
+  },
 };
 </script>
 <style lang="scss">

@@ -26,20 +26,20 @@ export default {
   props: {
     size: {
       type: Object,
-      required: true
+      required: true,
     },
     maxSize: {
       type: Number,
-      required: true
+      required: true,
     },
     position: {
       type: Object,
-      required: true
+      required: true,
     },
     editable: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
 
   data() {
@@ -50,13 +50,13 @@ export default {
       scalePointer: null,
       // Actuall position of the div
       pixelPosition: { x: 0, y: 0 },
-      editMode: ""
+      editMode: "",
     };
   },
 
   mounted() {
     this.mouseDownListener = listen(this.$refs.itemEdit, "mousedown").start(
-      e => {
+      (e) => {
         this.editMode = e.target.dataset.mode || "";
       }
     );
@@ -94,7 +94,7 @@ export default {
                 const width = Math.ceil(x / this.itemSize);
                 this.$emit("update:size", {
                   width,
-                  height: this.size.height || 0
+                  height: this.size.height || 0,
                 });
               }
             );
@@ -107,7 +107,7 @@ export default {
                 const height = Math.ceil(y / this.itemSize);
                 this.$emit("update:size", {
                   width: this.size.width || 0,
-                  height
+                  height,
                 });
               }
             );
@@ -117,7 +117,7 @@ export default {
             document.body.style.cursor = "nw-resize";
             this.scalePointer = pointer({
               x: this.pixelSize.width,
-              y: this.pixelSize.height
+              y: this.pixelSize.height,
             }).start(({ x, y }) => {
               const width = Math.ceil(x / this.itemSize);
               const height = Math.ceil(y / this.itemSize);
@@ -137,7 +137,7 @@ export default {
               from: this.pixelPosition,
               to: this.calculatePixelPosition(this.position),
               duration: 200,
-              ease: easing.easeIn
+              ease: easing.easeIn,
             }).start(({ x, y }) => {
               this.pixelPosition.x = x;
               this.pixelPosition.y = y;
@@ -180,23 +180,23 @@ export default {
 
       handler(newPosition) {
         this.pixelPosition = this.calculatePixelPosition(newPosition);
-      }
-    }
+      },
+    },
   },
 
   methods: {
     calculatePixelPosition(position) {
       return {
         x: this.margin * (position.x + 1) + this.itemSize * position.x,
-        y: this.margin * (position.y + 1) + this.itemSize * position.y
+        y: this.margin * (position.y + 1) + this.itemSize * position.y,
       };
-    }
+    },
   },
 
   computed: {
     ...mapState({
-      margin: state => state.settings.itemMargin,
-      itemSize: "itemSize"
+      margin: (state) => state.settings.itemMargin,
+      itemSize: "itemSize",
     }),
 
     itemStyle() {
@@ -204,7 +204,7 @@ export default {
         top: `${this.pixelPosition.y}px`,
         left: `${this.pixelPosition.x}px`,
         width: `${this.pixelSize.width}px`,
-        height: `${this.pixelSize.height}px`
+        height: `${this.pixelSize.height}px`,
       };
     },
 
@@ -214,10 +214,10 @@ export default {
 
       return {
         width: sizeWidth * this.itemSize,
-        height: sizeHeight * this.itemSize
+        height: sizeHeight * this.itemSize,
       };
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

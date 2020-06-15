@@ -3,7 +3,7 @@
 import { app, protocol, BrowserWindow } from "electron";
 import {
   createProtocol,
-  installVueDevtools
+  installVueDevtools,
 } from "vue-cli-plugin-electron-builder/lib";
 import path from "path";
 
@@ -15,7 +15,7 @@ let win;
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
-  { scheme: "app", privileges: { secure: true, standard: true } }
+  { scheme: "app", privileges: { secure: true, standard: true } },
 ]);
 
 function createWindow() {
@@ -26,8 +26,8 @@ function createWindow() {
     frame: false,
     backgroundColor: "#212121",
     webPreferences: {
-      nodeIntegration: true
-    }
+      nodeIntegration: true,
+    },
   });
 
   let url = "";
@@ -85,7 +85,7 @@ app.on("ready", async () => {
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
   if (process.platform === "win32") {
-    process.on("message", data => {
+    process.on("message", (data) => {
       if (data === "graceful-exit") {
         app.quit();
       }

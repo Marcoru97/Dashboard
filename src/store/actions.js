@@ -7,10 +7,10 @@ export default {
   [types.actions.LOAD_AVAILABLE_EXTENSIONS]({ commit, state }) {
     commit(types.mutations.CLEAR_AVAILABLE_EXTENSIONS);
 
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       const files = fs.readdirSync(path.join(state.appDir, "extensions"));
 
-      files.forEach(file => {
+      files.forEach((file) => {
         const extensionPath = path.join(
           state.appDir,
           "extensions",
@@ -25,5 +25,5 @@ export default {
 
       resolve();
     });
-  }
+  },
 };

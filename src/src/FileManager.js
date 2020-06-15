@@ -28,7 +28,7 @@ export default class FileManager {
   }
 
   writeStateFile(state) {
-    fs.writeFile(this.configFile, JSON.stringify(state), err => {
+    fs.writeFile(this.configFile, JSON.stringify(state), (err) => {
       if (err) {
         // eslint-disable-next-line no-console
         console.error(

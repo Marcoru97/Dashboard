@@ -21,16 +21,16 @@ export default {
   props: {
     name: {
       type: String,
-      required: true
+      required: true,
     },
     size: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
 
   components: {
-    ErrorMessage
+    ErrorMessage,
   },
 
   data() {
@@ -42,7 +42,7 @@ export default {
         name: "New Extension",
         description: "No description :(",
         version: "-",
-        author: ""
+        author: "",
       },
       extensionJavascript: {},
       extensionTemplate: "",
@@ -50,7 +50,7 @@ export default {
         this.$store.state.appDir,
         "extensions",
         this.name
-      )
+      ),
     };
   },
 
@@ -70,7 +70,7 @@ export default {
           });
         }
       })
-      .catch(error => {
+      .catch((error) => {
         this.showConsoleError(error);
         this.extensionErrorMessage = error;
         this.extensionHasError = true;
@@ -87,7 +87,7 @@ export default {
 
           this.extensionData = {
             ...this.extensionData,
-            ...JSON.parse(jsonFileData)
+            ...JSON.parse(jsonFileData),
           };
 
           // Loads the javascript file
@@ -153,7 +153,7 @@ export default {
         `Extension: '${this.extension}' \n`,
         `Error: ${error} \n`
       );
-    }
-  }
+    },
+  },
 };
 </script>
