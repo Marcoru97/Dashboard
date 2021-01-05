@@ -14,7 +14,7 @@
   },
   "main": "background.js",
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "core-js": "^3.4.3",
     "lodash.fill": "^3.4.0",
     "lodash.throttle": "^4.1.1",
